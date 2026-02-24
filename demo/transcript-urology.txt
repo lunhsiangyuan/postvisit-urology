@@ -1,0 +1,85 @@
+VISIT TRANSCRIPT — PostVisit Urology Demo
+Date: 2026-02-25
+Provider: Dr. Lun-Hsiang Yuan, MD, PhD — Urology
+Patient: 王志明 (Wang Zhi-Ming), 65M
+Recording initiated by patient (reverse scribe, mutual consent)
+
+---
+
+[00:00] DR. YUAN: Good morning, Mr. Wang. I'm Dr. Yuan from the urology department here at National Taiwan University Hospital Yunlin Branch. Please have a seat. Your family doctor referred you to us — can you tell me what's been bothering you?
+
+[00:12] PATIENT: Good morning, doctor. Yes, I've had this urination problem for about two years now. It's been getting worse lately. I wake up to urinate at least three times a night, and during the day the stream feels very weak. Sometimes I have to push hard to get anything out.
+
+[00:30] DR. YUAN: I see. Three times a night — that's significant. When you say the stream is weak, would you say it's thin and slow, or does it stop and start?
+
+[00:38] PATIENT: Both, actually. It's thin, slow, and it sometimes starts and stops. And even after I finish, I feel like there's still urine left inside. That incomplete feeling is very uncomfortable.
+
+[00:50] DR. YUAN: That sensation of incomplete emptying is important. Have you ever had a complete inability to urinate — what we call urinary retention?
+
+[00:57] PATIENT: Not completely blocked, no. But there was one night last month where it took almost ten minutes to start urinating. I was very worried.
+
+[01:06] DR. YUAN: Understood. Any blood in the urine? Any pain when urinating?
+
+[01:11] PATIENT: No blood. And no pain — it's more like the difficulty and the slow stream. Oh, and urgency sometimes — like I need to go right now but then when I get to the bathroom, it takes forever.
+
+[01:24] DR. YUAN: That urgency followed by a weak stream is a very characteristic pattern. Now, are you taking any medications?
+
+[01:31] PATIENT: I take amlodipine for blood pressure. And I've been taking a herbal prostate supplement from the pharmacy — I don't remember the name.
+
+[01:40] DR. YUAN: Some over-the-counter cold medications and antihistamines can actually worsen urinary symptoms — are you taking any of those?
+
+[01:47] PATIENT: Occasionally antihistamines for my allergies. I didn't know that could affect urination.
+
+[01:53] DR. YUAN: Yes, they can tighten the bladder neck and make symptoms worse. We'll need to discuss alternatives. Any history of prostate problems in your family?
+
+[02:02] PATIENT: My father had prostate cancer, but he was treated successfully. He's 88 now and doing well.
+
+[02:09] DR. YUAN: Good to know. That family history means we should monitor your PSA carefully over time. Any symptoms of infection? Fever, pain in the lower abdomen, or burning urination?
+
+[02:19] PATIENT: No fever. No burning. Just the difficulties I described.
+
+[02:24] DR. YUAN: All right, Mr. Wang. Based on what you've described — nighttime urination three times, weak stream, stop-and-go pattern, incomplete emptying, and urgency — these are classic lower urinary tract symptoms, or LUTS, which we commonly see with benign prostate enlargement, what we call BPH, or benign prostatic hyperplasia.
+
+[02:46] PATIENT: I've heard of that. Is that serious?
+
+[02:49] DR. YUAN: It's very common — about half of men your age have it, and the vast majority manage it well with medication or treatment. What we want to rule out is whether the prostate is also causing significant obstruction at the bladder outlet. That's called BOO — bladder outlet obstruction.
+
+[03:05] PATIENT: And how do you know which one it is?
+
+[03:07] DR. YUAN: We've already done several tests today. Your uroflowmetry — that's the urine speed test you did earlier — showed a peak flow rate of 8.2 milliliters per second. A normal reading would be above 15. The post-void residual, meaning the urine left in your bladder after voiding, was 120 milliliters. Ideally that should be under 50.
+
+[03:27] PATIENT: So it is obstructed?
+
+[03:29] DR. YUAN: The numbers suggest significant outflow obstruction, yes. Your PSA came back at 2.8 nanograms per milliliter. That's within a range that's generally considered acceptable for your age, but combined with your family history, we'll monitor it every 6 to 12 months.
+
+[03:45] PATIENT: What about prostate cancer? Should I be worried?
+
+[03:48] DR. YUAN: Your PSA level, the digital rectal examination I performed — which found an enlarged but smooth prostate, roughly 45 grams — and your clinical picture are more consistent with BPH than with cancer. But I want to be clear: we'll monitor this carefully. If PSA rises significantly or changes in pattern, we'll discuss further evaluation.
+
+[04:08] PATIENT: What's the treatment now?
+
+[04:10] DR. YUAN: We'll start you on tamsulosin — also known by the brand name Harnalidge — at 0.4 milligrams once daily. This is an alpha-blocker. It works by relaxing the smooth muscle in the prostate and bladder neck, making it easier for urine to flow out. You'll likely notice improvement in your stream and nighttime voiding within 2 to 4 weeks.
+
+[04:32] PATIENT: Are there side effects?
+
+[04:34] DR. YUAN: The most common side effect is dizziness, especially when you stand up quickly — what we call orthostatic hypotension. Take the tablet at night before bed to minimize this effect. Some men notice retrograde ejaculation — where semen goes backward into the bladder during orgasm — which is harmless but worth knowing about.
+
+[04:52] PATIENT: Can this be cured with just medication?
+
+[04:55] DR. YUAN: For many men, medication controls symptoms very well for years. If symptoms don't improve sufficiently, or if complications develop — like recurrent infections, bladder stones, or kidney involvement — we'd discuss surgical options. The most common procedure is TURP, transurethral resection of the prostate. A newer option I perform is HoLEP — holmium laser enucleation of the prostate — which has excellent outcomes and lower bleeding risk. But we're not at that point yet. Let's start with medication first.
+
+[05:23] PATIENT: What should I avoid in the meantime?
+
+[05:26] DR. YUAN: A few things: limit fluids after 7 PM to reduce nighttime urination. Avoid those antihistamines we discussed, and also decongestants like pseudoephedrine — they can make symptoms worse. Limit caffeine and alcohol, especially in the evenings. And try double voiding — urinate, wait a minute, then try again to get more urine out.
+
+[05:48] PATIENT: That's helpful. When do I come back?
+
+[05:51] DR. YUAN: I'd like to see you in six weeks for a follow-up uroflowmetry and residual urine check to see how the medication is working. We'll also recheck your PSA in six months. If your symptoms worsen dramatically before then — especially if you can't urinate at all — go to the emergency room immediately. That would be acute urinary retention and requires prompt treatment.
+
+[06:12] PATIENT: I understand. Thank you, doctor.
+
+[06:14] DR. YUAN: You're welcome, Mr. Wang. The nurse will give you written instructions and information about your medication. Take care.
+
+---
+END OF TRANSCRIPT
+Total duration: 6 minutes 14 seconds

@@ -24,16 +24,16 @@ You are a medical terminology extractor. Your job is to identify clinically rele
 
 ## What to Extract (examples by category)
 
-- **Conditions/diagnoses**: hypertension, arrhythmia, diabetes, PVCs, atrial fibrillation
-- **Medications**: BiPressil, propranolol, bisoprolol, metformin (include brand names AND generic names)
-- **Symptoms**: palpitations, insomnia, constipation, chest pain, dyspnea, edema
-- **Procedures/tests**: ECG, coronary CT scan, echocardiogram, blood panel, urinalysis
-- **Vital signs**: blood pressure, systolic, diastolic, heart rate, BMI, SpO2
-- **Anatomical terms**: coronary arteries, left ventricle, hepatic, renal
-- **Lab values**: cholesterol, TSH, potassium, creatinine, hemoglobin
-- **Medical abbreviations**: BP, HR, ECG, CT, MRI, BID, PRN, mmHg
-- **Dosage/frequency**: mg, twice daily, once daily, as needed
-- **Lifestyle factors**: alcohol consumption (when clinically relevant)
+- **Conditions/diagnoses**: hypertension, arrhythmia, diabetes, PVCs, atrial fibrillation, BPH, BOO, LUTS, prostate cancer, bladder cancer, urinary retention, UTI, nephrolithiasis, hematuria
+- **Medications**: BiPressil, propranolol, bisoprolol, metformin, tamsulosin, Harnalidge, Flomax, silodosin, finasteride, dutasteride, solifenacin, oxybutynin, amlodipine (include brand names AND generic names)
+- **Symptoms**: palpitations, insomnia, constipation, chest pain, dyspnea, edema, nocturia, hesitancy, weak stream, urgency, dysuria, hematuria, incomplete emptying, straining, post-void dribbling, frequency
+- **Procedures/tests**: ECG, coronary CT scan, echocardiogram, blood panel, urinalysis, uroflowmetry, cystoscopy, urodynamics, TRUS, DRE, prostate biopsy, ESWL, PCNL, TURP, HoLEP, RALP
+- **Vital signs**: blood pressure, systolic, diastolic, heart rate, BMI, SpO2, Qmax, PVR, peak flow rate
+- **Anatomical terms**: coronary arteries, left ventricle, hepatic, renal, prostate, bladder, urethra, ureter, kidney, detrusor, sphincter, bladder neck
+- **Lab values**: cholesterol, TSH, potassium, creatinine, hemoglobin, PSA, PSA density, free PSA, eGFR, IPSS score
+- **Medical abbreviations**: BP, HR, ECG, CT, MRI, BID, PRN, mmHg, mL/s, ng/mL, LUTS, BPH, BOO, UTI, DRE, TRUS, IPSS, PVR, QD
+- **Dosage/frequency**: mg, twice daily, once daily, as needed, at bedtime
+- **Lifestyle factors**: alcohol consumption (when clinically relevant), fluid restriction, caffeine, double voiding technique
 
 ## Input
 
