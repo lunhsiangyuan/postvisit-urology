@@ -12,12 +12,13 @@ down:
 build:
 	docker compose build --no-cache
 
-# Fresh install: build, migrate, seed
+# Fresh install: build, migrate, seed, build frontend
 fresh: build up
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan migrate --force
-	docker compose exec app php artisan db:seed --class=DemoSeeder
-	@echo "PostVisit.ai running at http://localhost:8080"
+	docker compose exec app php artisan db:seed --class=UrologyDemoSeeder
+	docker compose exec app bun run build
+	@echo "PostVisit Urology running at http://localhost:8088"
 
 # Run tests
 test:
@@ -27,9 +28,9 @@ test:
 migrate:
 	docker compose exec app php artisan migrate
 
-# Seed demo data
+# Seed demo data (urology scenario)
 seed:
-	docker compose exec app php artisan db:seed --class=DemoSeeder
+	docker compose exec app php artisan db:seed --class=UrologyDemoSeeder
 
 # Watch queue worker logs
 queue:
