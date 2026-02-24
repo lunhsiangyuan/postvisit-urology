@@ -17,14 +17,13 @@ use App\Models\Visit;
 use App\Models\VisitNote;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
  * Urology Demo Seeder — BOO/BPH Scenario
  *
  * Seeds a complete urology post-visit demo for postvisit.yuanuro.com.
- * Patient: 王志明 (65M) with BPH/BOO
+ * Patient: 王志明 (Wang Zhi-Ming, 65M) with BPH/BOO
  * Provider: Dr. Lun-Hsiang Yuan, Urology, NTUH Yunlin Branch
  *
  * Demo accounts:
@@ -96,7 +95,7 @@ class UrologyDemoSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        $patientUser = User::create([
+        User::create([
             'name' => '王志明 Wang Zhi-Ming',
             'email' => 'patient@demo.yuanuro.com',
             'password' => 'password',
@@ -131,7 +130,7 @@ class UrologyDemoSeeder extends Seeder
             'created_by' => $doctorUser->id,
         ]);
 
-        // 6. Observations — Urology-specific labs and studies
+        // 6. Observations
         $yesterday = now()->subDay()->toDateString();
 
         // 6a. Uroflowmetry — Peak Flow Rate (Qmax)
@@ -167,7 +166,7 @@ class UrologyDemoSeeder extends Seeder
             'created_by' => $doctorUser->id,
         ]);
 
-        // 6b. Post-Void Residual (PVR) Urine Volume
+        // 6b. Post-Void Residual (PVR)
         Observation::create([
             'fhir_observation_id' => 'obs-pvr-'.Str::uuid(),
             'patient_id' => $patient->id,
@@ -195,7 +194,7 @@ class UrologyDemoSeeder extends Seeder
             'created_by' => $doctorUser->id,
         ]);
 
-        // 6c. PSA (Prostate-Specific Antigen)
+        // 6c. PSA
         Observation::create([
             'fhir_observation_id' => 'obs-psa-'.Str::uuid(),
             'patient_id' => $patient->id,
@@ -211,7 +210,7 @@ class UrologyDemoSeeder extends Seeder
             'value_unit' => 'ng/mL',
             'reference_range_low' => null,
             'reference_range_high' => 4.0,
-            'reference_range_text' => 'Age 65: <4.0 ng/mL; Family history of PCa warrants closer monitoring',
+            'reference_range_text' => 'Age 65: <4.0 ng/mL; Monitor closely with family history of PCa',
             'interpretation' => 'N',
             'effective_date' => $yesterday,
             'issued_at' => now()->subDay(),
@@ -219,14 +218,14 @@ class UrologyDemoSeeder extends Seeder
                 'psa_density' => 0.062,
                 'psa_density_unit' => 'ng/mL/mL',
                 'prostate_volume_used' => 45,
-                'interpretation' => 'PSA within normal range for age. Elevated relative to prostate size (PSA density 0.062). Monitor closely given family history of prostate cancer.',
+                'interpretation' => 'PSA within normal range for age. Monitor every 6 months given family history.',
                 'family_history_flag' => true,
                 'next_check_months' => 6,
             ],
             'created_by' => $doctorUser->id,
         ]);
 
-        // 6d. Prostate Size (DRE estimated / TRUS)
+        // 6d. Prostate Size (DRE)
         Observation::create([
             'fhir_observation_id' => 'obs-prostate-'.Str::uuid(),
             'patient_id' => $patient->id,
@@ -257,7 +256,7 @@ class UrologyDemoSeeder extends Seeder
             'created_by' => $doctorUser->id,
         ]);
 
-        // 6e. IPSS Score (International Prostate Symptom Score)
+        // 6e. IPSS Score
         Observation::create([
             'fhir_observation_id' => 'obs-ipss-'.Str::uuid(),
             'patient_id' => $patient->id,
@@ -271,8 +270,6 @@ class UrologyDemoSeeder extends Seeder
             'value_type' => 'quantity',
             'value_quantity' => 19,
             'value_unit' => 'score',
-            'reference_range_low' => null,
-            'reference_range_high' => null,
             'reference_range_text' => 'Mild: 0-7; Moderate: 8-19; Severe: 20-35',
             'interpretation' => 'H',
             'effective_date' => $yesterday,
@@ -281,21 +278,11 @@ class UrologyDemoSeeder extends Seeder
                 'severity_category' => 'Moderate-to-severe',
                 'quality_of_life' => 4,
                 'qol_scale' => '0-6 (6 = worst)',
-                'subscores' => [
-                    'incomplete_emptying' => 3,
-                    'frequency' => 3,
-                    'intermittency' => 3,
-                    'urgency' => 3,
-                    'weak_stream' => 4,
-                    'straining' => 2,
-                    'nocturia' => 1,
-                ],
-                'note' => 'Nocturia subscale reflects 3 episodes/night but scored as 1 in IPSS (max 1pt). Patient burden significant.',
             ],
             'created_by' => $doctorUser->id,
         ]);
 
-        // 6f. Blood Pressure (hypertension context)
+        // 6f. Blood Pressure
         Observation::create([
             'fhir_observation_id' => 'obs-bp-'.Str::uuid(),
             'patient_id' => $patient->id,
@@ -314,12 +301,11 @@ class UrologyDemoSeeder extends Seeder
             'specialty_data' => [
                 'systolic' => ['value' => 138, 'unit' => 'mmHg', 'code' => '8480-6'],
                 'diastolic' => ['value' => 86, 'unit' => 'mmHg', 'code' => '8462-4'],
-                'note' => 'HTN controlled on amlodipine. Target <130/80 per EAU guidelines for this age group.',
             ],
             'created_by' => $doctorUser->id,
         ]);
 
-        // 6g. Creatinine — renal function (important before initiating alpha-blocker)
+        // 6g. Creatinine
         Observation::create([
             'fhir_observation_id' => 'obs-creat-'.Str::uuid(),
             'patient_id' => $patient->id,
@@ -343,7 +329,6 @@ class UrologyDemoSeeder extends Seeder
                 'egfr' => 78,
                 'egfr_unit' => 'mL/min/1.73m2',
                 'egfr_stage' => 'G2 (mildly decreased)',
-                'clinical_significance' => 'Renal function adequate. No contraindication to tamsulosin. Monitor if BOO progresses (chronic urinary retention can cause hydronephrosis and renal impairment).',
             ],
             'created_by' => $doctorUser->id,
         ]);
@@ -371,7 +356,6 @@ class UrologyDemoSeeder extends Seeder
                 'protein' => 'Trace',
                 'glucose' => 'Negative',
                 'ph' => 6.0,
-                'specific_gravity' => 1.018,
                 'appearance' => 'Clear, pale yellow',
                 'microscopy' => '0-2 WBC/hpf, 0-1 RBC/hpf — within normal limits',
                 'interpretation' => 'No evidence of urinary tract infection or hematuria.',
@@ -383,7 +367,6 @@ class UrologyDemoSeeder extends Seeder
         Condition::create([
             'fhir_condition_id' => 'condition-'.Str::uuid(),
             'patient_id' => $patient->id,
-            'practitioner_id' => $practitioner->id,
             'visit_id' => $visit->id,
             'code_system' => 'ICD-10-CM',
             'code' => 'N40.1',
@@ -392,14 +375,13 @@ class UrologyDemoSeeder extends Seeder
             'clinical_status' => 'active',
             'verification_status' => 'confirmed',
             'onset_date' => now()->subYears(2)->toDateString(),
-            'recorded_date' => $yesterday,
-            'notes' => 'BPH diagnosed clinically by DRE and supported by uroflowmetry, PVR, and IPSS score.',
+            'clinical_notes' => 'BPH diagnosed clinically by DRE and supported by uroflowmetry, PVR, and IPSS score.',
+            'created_by' => $doctorUser->id,
         ]);
 
         Condition::create([
             'fhir_condition_id' => 'condition-'.Str::uuid(),
             'patient_id' => $patient->id,
-            'practitioner_id' => $practitioner->id,
             'visit_id' => $visit->id,
             'code_system' => 'ICD-10-CM',
             'code' => 'N13.9',
@@ -408,14 +390,13 @@ class UrologyDemoSeeder extends Seeder
             'clinical_status' => 'active',
             'verification_status' => 'confirmed',
             'onset_date' => now()->subYears(2)->toDateString(),
-            'recorded_date' => $yesterday,
-            'notes' => 'BOO evidenced by Qmax 8.2 mL/s and elevated PVR 120mL. No upper tract obstruction noted.',
+            'clinical_notes' => 'BOO evidenced by Qmax 8.2 mL/s and elevated PVR 120mL.',
+            'created_by' => $doctorUser->id,
         ]);
 
         Condition::create([
             'fhir_condition_id' => 'condition-'.Str::uuid(),
             'patient_id' => $patient->id,
-            'practitioner_id' => $practitioner->id,
             'visit_id' => $visit->id,
             'code_system' => 'ICD-10-CM',
             'code' => 'I10',
@@ -424,20 +405,22 @@ class UrologyDemoSeeder extends Seeder
             'clinical_status' => 'active',
             'verification_status' => 'confirmed',
             'onset_date' => now()->subYears(8)->toDateString(),
-            'recorded_date' => $yesterday,
-            'notes' => 'Controlled on amlodipine 5mg QD. Target BP <130/80.',
+            'clinical_notes' => 'Controlled on amlodipine 5mg QD.',
+            'created_by' => $doctorUser->id,
         ]);
 
-        // 8. Prescription — Tamsulosin (Harnalidge)
+        // 8. Medication + Prescription — Tamsulosin (Harnalidge)
         $medication = Medication::firstOrCreate(
-            ['rxnorm_id' => '77492'],
+            ['rxnorm_code' => '77492'],
             [
-                'name' => 'Tamsulosin Hydrochloride',
+                'generic_name' => 'Tamsulosin Hydrochloride',
+                'display_name' => 'Tamsulosin (Harnalidge)',
                 'brand_names' => ['Harnalidge', 'Flomax'],
-                'drug_class' => 'Alpha-1 Adrenergic Blocker',
                 'form' => 'Modified-release capsule',
-                'route' => 'oral',
-                'strength' => '0.4mg',
+                'strength_value' => 0.4,
+                'strength_unit' => 'mg',
+                'source' => 'rxnorm',
+                'is_active' => true,
             ]
         );
 
@@ -447,150 +430,172 @@ class UrologyDemoSeeder extends Seeder
             'practitioner_id' => $practitioner->id,
             'visit_id' => $visit->id,
             'medication_id' => $medication->id,
-            'medication_name' => 'Tamsulosin (Harnalidge)',
-            'dosage_text' => '0.4mg once daily at bedtime',
-            'dose_value' => 0.4,
+            'status' => 'active',
+            'intent' => 'order',
+            'dose_quantity' => 0.4,
             'dose_unit' => 'mg',
             'route' => 'oral',
-            'frequency' => 'QD',
-            'timing' => 'At bedtime (reduces orthostatic hypotension risk)',
-            'indication' => 'BPH with bladder outlet obstruction',
-            'status' => 'active',
-            'authored_on' => now()->subDay(),
-            'instructions' => 'Take 1 capsule at bedtime. Rise slowly from sitting/lying positions. Report inability to urinate or severe dizziness immediately.',
-            'dispensed_as_written' => false,
-            'refills_allowed' => 3,
+            'frequency' => 'once daily',
+            'frequency_text' => 'Once daily at bedtime',
+            'indication' => 'BPH with bladder outlet obstruction (BOO)',
+            'special_instructions' => 'Take 1 capsule at bedtime. Rise slowly from sitting/lying positions (orthostatic hypotension risk). Report inability to urinate or severe dizziness immediately.',
+            'substitution_allowed' => true,
+            'number_of_refills' => 3,
+            'start_date' => now()->subDay()->toDateString(),
+            'created_by' => $doctorUser->id,
         ]);
 
         // 9. Visit Note (SOAP)
         VisitNote::create([
             'visit_id' => $visit->id,
             'patient_id' => $patient->id,
-            'practitioner_id' => $practitioner->id,
-            'note_type' => 'soap',
+            'author_practitioner_id' => $practitioner->id,
+            'composition_type' => 'clinic_note',
             'status' => 'final',
             'chief_complaint' => 'Progressive lower urinary tract symptoms (LUTS) for 2 years: nocturia × 3 per night, weak intermittent urinary stream, hesitancy, post-void dribbling, and sensation of incomplete bladder emptying.',
-            'history_of_present_illness' => '65-year-old male with 2-year history of progressive LUTS. Primary symptoms include nocturia × 3, weak and intermittent urinary stream, hesitancy (prolonged delay before voiding begins), post-void dribbling, and persistent sensation of incomplete emptying. Reports one episode of severely prolonged voiding (10 minutes to initiate) last month. No acute urinary retention. No hematuria. No dysuria. Occasional urgency without urge incontinence. Uses antihistamines for seasonal allergies (unknown brand). Background hypertension managed with amlodipine 5mg QD. Family history significant for prostate cancer in father (successfully treated, age 88). No prior urologic procedures or hospitalizations.',
-            'review_of_systems' => 'POSITIVE: Nocturia, weak stream, hesitancy, intermittent stream, post-void dribbling, urgency, incomplete emptying sensation.\nNEGATIVE: Hematuria, dysuria, flank pain, fever/chills, weight loss, erectile dysfunction (not volunteered), urinary incontinence.',
-            'physical_exam' => "General: Well-appearing 65-year-old male in no acute distress. Alert and oriented ×3.\nVitals: BP 138/86 mmHg, HR 72 bpm, SpO2 97%, Wt 73.5 kg, Ht 169 cm, BMI 25.7.\nAbdomen: Soft, non-tender, no suprapubic distension or tenderness. No flank tenderness.\nGenitourinary: Normal external genitalia. No inguinal lymphadenopathy.\nDigital Rectal Examination (DRE): Prostate enlarged, estimated ~45g. Smooth, firm, symmetric texture. No discrete nodules, no induration. Median sulcus obliterated. Non-tender. Sphincter tone normal.",
-            'assessment' => "1. Benign Prostatic Hyperplasia (BPH) with Lower Urinary Tract Symptoms — ICD-10: N40.1\n   Evidence: IPSS 19 (moderate-severe), DRE ~45g prostate (smooth, no nodules), PSA 2.8 ng/mL (within normal range for age, PSA density 0.062 — borderline).\n\n2. Bladder Outlet Obstruction (BOO) — ICD-10: N13.9\n   Evidence: Uroflowmetry Qmax 8.2 mL/s (severely reduced; normal >15 mL/s), PVR 120 mL (significantly elevated; normal <50 mL), obstructive flow curve pattern.\n\n3. Hypertension — ICD-10: I10 (known, managed with amlodipine 5mg QD)\n\n4. Family history of prostate cancer (father) — warrants PSA surveillance.\n\nPSA 2.8 ng/mL is within age-appropriate range, with benign DRE findings. Prostate cancer less likely but cannot be excluded; PSA density 0.062 warrants monitoring. No upper tract obstruction noted. Renal function preserved (Cr 0.9, eGFR 78).",
-            'plan' => "1. MEDICATION: Initiate tamsulosin (Harnalidge) 0.4mg modified-release capsule, once daily at BEDTIME. Mechanism: alpha-1 adrenergic receptor blocker → relaxes smooth muscle of prostate and bladder neck → improved urinary flow. Expected benefit in 2-4 weeks.\n\n2. MEDICATION COUNSELING:\n   - Take at bedtime to minimize risk of orthostatic hypotension\n   - Rise slowly from sitting/lying position\n   - Possible side effect: retrograde ejaculation (harmless)\n   - Possible side effect: dizziness/lightheadedness — do not drive until established on medication\n   - DISCONTINUE and avoid: antihistamines (diphenhydramine, chlorpheniramine), decongestants (pseudoephedrine) — these worsen BOO\n\n3. BEHAVIORAL MODIFICATIONS:\n   - Restrict fluid intake after 7 PM to reduce nocturia\n   - Practice double voiding: void, wait 1 minute, attempt again\n   - Limit caffeine and alcohol, especially evening\n   - Regular physical activity encouraged\n\n4. MONITORING: Repeat uroflowmetry + PVR at 6-week follow-up to assess treatment response.\n\n5. PSA SURVEILLANCE: Recheck PSA in 6 months given family history of prostate cancer.\n\n6. PATIENT EDUCATION: Patient educated on natural history of BPH, importance of medication adherence, and warning signs for acute urinary retention.\n\n7. EMERGENCY INSTRUCTIONS: If patient becomes unable to urinate (acute urinary retention) → proceed to Emergency Department IMMEDIATELY for catheterization.\n\n8. SURGICAL OPTIONS (discussed, deferred): If medical therapy fails or complications develop (recurrent UTI, bladder stones, hydronephrosis, renal impairment) → consider surgical intervention:\n   - TURP (transurethral resection of prostate) — gold standard\n   - HoLEP (holmium laser enucleation of prostate) — superior durability, lower bleeding risk; performed at this institution",
-            'follow_up' => 'Return in 6 weeks for repeat uroflowmetry and post-void residual measurement to assess tamsulosin response. PSA recheck in 6 months. Urgent follow-up or ER if acute urinary retention occurs.',
+            'history_of_present_illness' => '65-year-old male with 2-year history of progressive LUTS. Primary symptoms include nocturia × 3, weak and intermittent urinary stream, hesitancy (prolonged delay before voiding begins), post-void dribbling, and persistent sensation of incomplete emptying. Reports one episode of severely prolonged voiding (10 minutes to initiate) last month. No acute urinary retention. No hematuria. No dysuria. Occasional urgency without urge incontinence. Uses antihistamines for seasonal allergies. Background hypertension managed with amlodipine 5mg QD. Family history significant for prostate cancer in father (successfully treated, age 88). No prior urologic procedures or hospitalizations.',
+            'review_of_systems' => "POSITIVE: Nocturia, weak stream, hesitancy, intermittent stream, post-void dribbling, urgency, incomplete emptying sensation.\nNEGATIVE: Hematuria, dysuria, flank pain, fever/chills, weight loss, urinary incontinence.",
+            'physical_exam' => "General: Well-appearing 65-year-old male in no acute distress. Alert and oriented ×3.\nVitals: BP 138/86 mmHg, HR 72 bpm, SpO2 97%, Wt 73.5 kg, Ht 169 cm, BMI 25.7.\nAbdomen: Soft, non-tender, no suprapubic distension or tenderness.\nDigital Rectal Examination (DRE): Prostate enlarged, estimated ~45g. Smooth, firm, symmetric texture. No discrete nodules. Median sulcus obliterated. Non-tender.",
+            'assessment' => "1. Benign Prostatic Hyperplasia (BPH) with Lower Urinary Tract Symptoms — ICD-10: N40.1\n   Evidence: IPSS 19 (moderate-severe), DRE ~45g prostate, PSA 2.8 ng/mL (normal range).\n\n2. Bladder Outlet Obstruction (BOO) — ICD-10: N13.9\n   Evidence: Uroflowmetry Qmax 8.2 mL/s (severely reduced; normal >15 mL/s), PVR 120 mL (elevated).\n\n3. Hypertension — ICD-10: I10 (controlled on amlodipine 5mg QD)\n\n4. Family history of prostate cancer (father) — warrants PSA surveillance.",
+            'plan' => "1. MEDICATION: Initiate tamsulosin (Harnalidge) 0.4mg once daily at BEDTIME.\n   Alpha-1 adrenergic blocker → relaxes prostate/bladder neck smooth muscle → improved flow.\n\n2. MEDICATION COUNSELING:\n   - Take at bedtime to minimize orthostatic hypotension risk\n   - DISCONTINUE antihistamines and decongestants (worsen BOO)\n   - Possible side effect: retrograde ejaculation (harmless)\n\n3. BEHAVIORAL MODIFICATIONS:\n   - Restrict fluids after 7 PM (reduce nocturia)\n   - Practice double voiding\n   - Limit caffeine and evening alcohol\n\n4. FOLLOW-UP: Repeat uroflowmetry + PVR in 6 weeks.\n\n5. PSA SURVEILLANCE: Recheck in 6 months (family history of PCa).\n\n6. EMERGENCY: Acute urinary retention → ER IMMEDIATELY.\n\n7. SURGICAL OPTIONS discussed if medical therapy fails:\n   - TURP (transurethral resection of prostate) — gold standard\n   - HoLEP (holmium laser enucleation) — available at this institution",
+            'follow_up' => 'Return in 6 weeks for repeat uroflowmetry and post-void residual measurement. PSA recheck in 6 months. ER if acute urinary retention occurs.',
             'medical_terms' => [
                 'LUTS' => 'Lower Urinary Tract Symptoms — a group of urinary problems including difficulty urinating, weak stream, and needing to go frequently.',
-                'BPH' => 'Benign Prostatic Hyperplasia — non-cancerous enlargement of the prostate gland that is very common in older men.',
-                'BOO' => 'Bladder Outlet Obstruction — a blockage at the base of the bladder that prevents urine from flowing freely.',
-                'Qmax' => 'Peak Flow Rate — the fastest speed of your urine stream during the flow test; your result of 8.2 mL/s is lower than the normal minimum of 15 mL/s.',
-                'PVR' => 'Post-Void Residual — the amount of urine left in your bladder after urinating; your 120 mL is above the normal limit of 50 mL.',
-                'PSA' => 'Prostate-Specific Antigen — a protein measured in blood to help screen for prostate conditions including cancer; your result of 2.8 is within the normal range.',
-                'DRE' => 'Digital Rectal Examination — a physical exam where the doctor gently inserts a gloved finger into the rectum to feel the prostate.',
-                'IPSS' => 'International Prostate Symptom Score — a questionnaire measuring how much urinary symptoms affect your daily life; your score of 19 indicates moderate-to-severe symptoms.',
-                'Tamsulosin' => 'An alpha-blocker medication (brand name Harnalidge) that relaxes the muscles in the prostate and bladder neck, making it easier to urinate.',
-                'Alpha-blocker' => 'A class of medication that relaxes smooth muscle in the prostate and bladder outlet, improving urine flow in men with BPH.',
-                'TURP' => 'Transurethral Resection of the Prostate — a common surgical procedure that removes prostate tissue blocking urine flow, performed without external incisions.',
-                'HoLEP' => 'Holmium Laser Enucleation of the Prostate — an advanced laser surgery that removes the obstructing prostate tissue with minimal bleeding.',
-                'Orthostatic hypotension' => 'A temporary drop in blood pressure when you stand up quickly, which can cause brief dizziness — a possible side effect of tamsulosin.',
-                'Retrograde ejaculation' => 'A harmless side effect of alpha-blockers where semen goes into the bladder rather than out during orgasm; urine may appear cloudy afterward.',
-                'Nocturia' => 'The need to wake up at night to urinate; your 3 episodes per night significantly disrupt sleep.',
-                'Hesitancy' => 'Difficulty starting to urinate, requiring waiting or straining before urine begins to flow.',
-                'Acute urinary retention' => 'A medical emergency where you are completely unable to urinate — requires immediate emergency treatment with a catheter.',
+                'BPH' => 'Benign Prostatic Hyperplasia — non-cancerous enlargement of the prostate gland very common in older men.',
+                'BOO' => 'Bladder Outlet Obstruction — a blockage at the base of the bladder preventing urine from flowing freely.',
+                'Qmax' => 'Peak Flow Rate — the fastest speed of your urine stream; your 8.2 mL/s is below the normal minimum of 15 mL/s.',
+                'PVR' => 'Post-Void Residual — urine remaining in the bladder after voiding; your 120 mL is above the normal limit of 50 mL.',
+                'PSA' => 'Prostate-Specific Antigen — a blood marker for prostate health; your 2.8 ng/mL is within normal range.',
+                'DRE' => 'Digital Rectal Examination — a physical exam where the doctor feels the prostate through the rectum.',
+                'IPSS' => 'International Prostate Symptom Score — questionnaire measuring urinary symptoms; your score of 19 indicates moderate-to-severe symptoms.',
+                'Tamsulosin' => 'An alpha-blocker medication (Harnalidge) that relaxes prostate and bladder neck muscles to improve urine flow.',
+                'Alpha-blocker' => 'A medication class that relaxes smooth muscle in the prostate and bladder outlet, improving urine flow in BPH.',
+                'TURP' => 'Transurethral Resection of the Prostate — surgery removing obstructing prostate tissue without external incisions.',
+                'HoLEP' => 'Holmium Laser Enucleation of the Prostate — advanced laser surgery with minimal bleeding risk.',
+                'Nocturia' => 'Waking at night to urinate; your 3 episodes per night significantly disrupts sleep.',
+                'Hesitancy' => 'Difficulty starting to urinate, requiring waiting or straining before urine flows.',
+                'Acute urinary retention' => 'A medical emergency — complete inability to urinate requiring immediate catheterization.',
             ],
-            'created_by' => $doctorUser->id,
+            'is_signed' => true,
+            'signed_at' => $visitStart->copy()->addMinutes(374),
         ]);
 
-        // 10. Transcript — load from file
+        // 10. Transcript
         $transcriptPath = base_path('demo/transcript-urology.txt');
         $rawTranscript = file_exists($transcriptPath)
             ? file_get_contents($transcriptPath)
-            : 'Transcript file not found. Please ensure demo/transcript-urology.txt exists.';
+            : 'Demo transcript not found. Please ensure demo/transcript-urology.txt exists.';
 
-        $transcript = Transcript::create([
+        Transcript::create([
             'visit_id' => $visit->id,
             'patient_id' => $patient->id,
-            'status' => 'completed',
+            'source_type' => 'manual_upload',
+            'stt_provider' => 'whisper',
             'raw_transcript' => $rawTranscript,
-            'word_count' => str_word_count($rawTranscript),
-            'duration_seconds' => 374,
-            'language' => 'en',
-            'source' => 'demo',
+            'processing_status' => 'completed',
+            'audio_duration_seconds' => 374,
+            'patient_consent_given' => true,
+            'consent_timestamp' => $visitStart,
         ]);
 
-        // 11. Medical References — EAU Urology Guidelines
+        // 11. Medical References
         MedicalReference::create([
             'title' => 'EAU Guidelines on Management of Non-Neurogenic Male LUTS including BPH 2024',
-            'source' => 'European Association of Urology',
-            'reference_type' => 'clinical_guideline',
+            'source_organization' => 'European Association of Urology',
+            'category' => 'clinical_guideline',
+            'specialty' => 'urology',
             'url' => 'https://uroweb.org/guidelines/management-of-non-neurogenic-male-luts',
-            'summary' => 'Alpha-1 blockers (tamsulosin, silodosin, alfuzosin) are the first-line medical treatment for LUTS/BPH with moderate-to-severe symptoms (IPSS ≥8). They improve Qmax and IPSS within 2-4 weeks. Surgery (TURP, HoLEP) is indicated when medical therapy fails or complications arise.',
-            'evidence_level' => '1a',
+            'summary' => 'Alpha-1 blockers (tamsulosin, silodosin, alfuzosin) are first-line medical treatment for LUTS/BPH with moderate-to-severe symptoms (IPSS ≥8). Improve Qmax and IPSS within 2-4 weeks. Surgery (TURP, HoLEP) indicated when medical therapy fails or complications arise.',
             'year' => 2024,
-            'patient_id' => $patient->id,
-            'visit_id' => $visit->id,
+            'verified' => true,
         ]);
 
         MedicalReference::create([
             'title' => 'EAU Guidelines on Prostate Cancer 2024',
-            'source' => 'European Association of Urology',
-            'reference_type' => 'clinical_guideline',
+            'source_organization' => 'European Association of Urology',
+            'category' => 'clinical_guideline',
+            'specialty' => 'urology',
             'url' => 'https://uroweb.org/guidelines/prostate-cancer',
-            'summary' => 'PSA screening is recommended for well-informed men aged 50-70 at average risk, or 40-45 for high-risk groups (family history, African descent). PSA density >0.15 and PSA velocity >0.75 ng/mL/year warrant further evaluation. Active surveillance is appropriate for low-risk prostate cancer.',
-            'evidence_level' => '1b',
+            'summary' => 'PSA screening recommended for well-informed men aged 50-70 at average risk, or 40-45 for high-risk groups (family history, African descent). PSA density >0.15 and PSA velocity >0.75 ng/mL/year warrant further evaluation.',
             'year' => 2024,
-            'patient_id' => $patient->id,
-            'visit_id' => $visit->id,
+            'verified' => true,
         ]);
 
         // 12. Consent
         Consent::create([
             'patient_id' => $patient->id,
-            'visit_id' => $visit->id,
             'consent_type' => 'recording',
-            'consented' => true,
+            'status' => 'active',
             'consented_at' => $visitStart,
-            'consent_text' => 'I consent to the recording of this consultation for the purpose of generating a post-visit summary via the PostVisit AI assistant. The recording will be processed by AI and deleted after transcript generation.',
+            'version' => '1.0',
         ]);
 
-        Log::info('UrologyDemoSeeder: Urology BOO demo scenario seeded successfully.', [
+        Log::info('UrologyDemoSeeder: Seeded successfully.', [
             'patient' => 'Wang Zhi-Ming (patient@demo.yuanuro.com)',
             'doctor' => 'Dr. Lun-Hsiang Yuan (doctor@demo.yuanuro.com)',
-            'visit_id' => $visit->id,
-            'scenario' => 'BOO/BPH',
+            'scenario' => 'BOO/BPH — tamsulosin initiated',
         ]);
 
-        $this->command->info('✅ Urology Demo seeded successfully.');
+        $this->command->info('');
+        $this->command->info('✅ Urology Demo seeded successfully!');
         $this->command->info('   Patient: patient@demo.yuanuro.com / password');
         $this->command->info('   Doctor:  doctor@demo.yuanuro.com  / password');
-        $this->command->info('   Scenario: BOO/BPH — 王志明, 65M, Tamsulosin initiated');
+        $this->command->info('   Scenario: BOO/BPH — 王志明, 65M');
     }
 
     private function cleanupExistingData(): void
     {
-        // Remove existing urology demo users to allow re-seeding
-        User::where('email', 'LIKE', '%@demo.yuanuro.com')->each(function ($user) {
-            if ($user->patient_id) {
-                $patient = Patient::find($user->patient_id);
-                if ($patient) {
-                    Observation::where('patient_id', $patient->id)->delete();
-                    Condition::where('patient_id', $patient->id)->delete();
-                    Prescription::where('patient_id', $patient->id)->delete();
-                    MedicalReference::where('patient_id', $patient->id)->delete();
-                    Consent::where('patient_id', $patient->id)->delete();
+        // Collect IDs from users (may be partially created from a prior failed run)
+        $users = User::where('email', 'LIKE', '%@demo.yuanuro.com')->get();
+        $patientIds = $users->pluck('patient_id')->filter()->values();
+        $practitionerIds = $users->pluck('practitioner_id')->filter()->values();
+        $userIds = $users->pluck('id');
 
-                    $visits = Visit::where('patient_id', $patient->id)->get();
-                    foreach ($visits as $visit) {
-                        VisitNote::where('visit_id', $visit->id)->delete();
-                        Transcript::where('visit_id', $visit->id)->delete();
-                        $visit->delete();
-                    }
-                    $patient->delete();
-                }
-            }
-            if ($user->practitioner_id) {
-                Practitioner::find($user->practitioner_id)?->delete();
-            }
-            $user->delete();
-        });
+        // Also find orphaned patients/practitioners not linked to any user (including soft-deleted)
+        $orphanPatients = Patient::withTrashed()->whereIn('email', ['patient@demo.yuanuro.com'])->pluck('id');
+        $patientIds = $patientIds->merge($orphanPatients)->unique()->values();
 
-        Organization::where('type', 'urology')->where('email', 'LIKE', '%ntuh%')->delete();
+        $orphanPractitioners = Practitioner::whereIn('email', ['doctor@demo.yuanuro.com'])->pluck('id');
+        $practitionerIds = $practitionerIds->merge($orphanPractitioners)->unique()->values();
+
+        // Step 1: delete visit children (no FK back to users/patients)
+        if ($patientIds->isNotEmpty()) {
+            $visitIds = Visit::whereIn('patient_id', $patientIds)->pluck('id');
+            if ($visitIds->isNotEmpty()) {
+                VisitNote::whereIn('visit_id', $visitIds)->delete();
+                Transcript::whereIn('visit_id', $visitIds)->delete();
+            }
+            Observation::whereIn('patient_id', $patientIds)->delete();
+            Condition::whereIn('patient_id', $patientIds)->delete();
+            Prescription::whereIn('patient_id', $patientIds)->delete();
+            Consent::whereIn('patient_id', $patientIds)->delete();
+        }
+
+        MedicalReference::where('specialty', 'urology')->delete();
+
+        // Step 2: delete visits (visits.created_by → users; must go before users)
+        if ($patientIds->isNotEmpty()) {
+            Visit::whereIn('patient_id', $patientIds)->delete();
+        }
+
+        // Step 3: delete users (users.patient_id → patients; users.practitioner_id → practitioners)
+        // Must delete users BEFORE patients AND practitioners
+        if ($userIds->isNotEmpty()) {
+            User::whereIn('id', $userIds)->delete();
+        }
+
+        // Step 4: forceDelete patients — Patient uses SoftDeletes; regular delete() leaves
+        // email in DB with unique constraint active; forceDelete() truly removes the row
+        if ($patientIds->isNotEmpty()) {
+            Patient::withTrashed()->whereIn('id', $patientIds)->forceDelete();
+        }
+
+        // Step 5: delete practitioners (now safe — users gone)
+        if ($practitionerIds->isNotEmpty()) {
+            Practitioner::whereIn('id', $practitionerIds)->delete();
+        }
+
+        // Step 6: delete organization
+        Organization::where('type', 'urology')->delete();
     }
 }
