@@ -27,7 +27,7 @@
           <div class="px-3 py-2.5 sm:px-4 sm:py-3 space-y-2">
             <div class="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
             <div class="h-3 bg-gray-100 rounded animate-pulse w-1/2"></div>
-            <div class="h-3 bg-emerald-50 rounded animate-pulse w-full"></div>
+            <div class="h-3 bg-[#eef3ec] rounded animate-pulse w-full"></div>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
       <div v-else-if="fetchError" class="text-center py-20">
         <p class="text-red-600 mb-4">{{ fetchError }}</p>
         <button
-          class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+          class="px-6 py-2 bg-[#4A6741] text-white rounded-lg hover:bg-[#3d5636] transition-colors"
           @click="loadScenarios"
         >
           Retry
@@ -49,7 +49,7 @@
             v-for="scenario in featuredScenarios"
             :key="scenario.key"
             :disabled="startingScenario !== null"
-            class="text-left bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-200 disabled:opacity-60 disabled:cursor-wait group ring-2 ring-emerald-200 hover:ring-emerald-400"
+            class="text-left bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-200 disabled:opacity-60 disabled:cursor-wait group ring-2 ring-[#c4d8bf] hover:ring-[#4A6741]"
             @click="selectScenario(scenario.key)"
           >
             <ScenarioCard :scenario="scenario" :index="scenarioIndex(scenario)" :starting="startingScenario === scenario.key" />
@@ -66,8 +66,8 @@
               'px-3 py-1 rounded-full text-xs font-medium transition-all duration-150',
               spec.available
                 ? activeSpecialty === spec.name
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'bg-white text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 border border-gray-200'
+                  ? 'bg-[#4A6741] text-white shadow-sm'
+                  : 'bg-white text-gray-600 hover:bg-[#f4f8f3] hover:text-[#4A6741] border border-gray-200'
                 : 'bg-gray-100 text-gray-300 border border-gray-100 cursor-default'
             ]"
             @click="handleSpecialtyClick(spec)"
@@ -81,7 +81,7 @@
         <div v-if="otherScenarios.length > 0" class="mt-6">
           <button
             v-if="!showMore"
-            class="w-full py-3 text-sm font-medium text-gray-500 hover:text-emerald-600 transition-colors flex items-center justify-center gap-2 bg-white rounded-lg border border-gray-200 hover:border-emerald-300"
+            class="w-full py-3 text-sm font-medium text-gray-500 hover:text-[#4A6741] transition-colors flex items-center justify-center gap-2 bg-white rounded-lg border border-gray-200 hover:border-[#c4d8bf]"
             @click="showMore = true"
           >
             <span>Show {{ otherScenarios.length }} more scenarios</span>
@@ -120,11 +120,11 @@
       <!-- Disclaimer -->
       <p class="text-center text-[11px] text-gray-400 mt-8 max-w-2xl mx-auto leading-relaxed">
         All patient photographs are AI-generated and do not depict real individuals.
-        Clinical scenarios span cardiology, endocrinology, gastroenterology, and pulmonology. All names, demographics, and medical data are entirely fictional.
+        Clinical scenarios span urology, cardiology, endocrinology, gastroenterology, and pulmonology. All names, demographics, and medical data are entirely fictional.
       </p>
 
       <div class="text-center mt-4">
-        <router-link to="/login" class="text-sm text-gray-400 hover:text-emerald-600 transition-colors">
+        <router-link to="/login" class="text-sm text-gray-400 hover:text-[#4A6741] transition-colors">
           Back to Sign In
         </router-link>
       </div>
@@ -165,6 +165,7 @@ const filteredOtherScenarios = computed(() => {
 });
 
 const KNOWN_SPECIALTIES = [
+  { name: 'urology', label: 'Urology' },
   { name: 'cardiology', label: 'Cardiology' },
   { name: 'endocrinology', label: 'Endocrinology' },
   { name: 'gastroenterology', label: 'Gastroenterology' },

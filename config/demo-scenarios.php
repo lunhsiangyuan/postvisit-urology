@@ -35,6 +35,199 @@ return [
 
     'scenarios' => [
 
+        'boo-bph' => [
+            'key' => 'boo-bph',
+            'name' => 'BOO / BPH',
+            'description' => 'Nocturia ×3, weak stream, post-void residual. Uroflowmetry Qmax 8.2 mL/s. Started on Tamsulosin.',
+            'icon' => 'droplets',
+            'color' => 'green',
+            'specialty' => 'urology',
+            'featured' => true,
+            'practitioner' => 'urologist-yuan',
+            'transcript_file' => 'demo/transcript-urology.txt',
+
+            'patient' => [
+                'first_name' => 'Zhi-Ming',
+                'last_name' => 'Wang',
+                'dob' => '1961-03-22',
+                'gender' => 'male',
+                'phone' => '+886-912-345-678',
+                'preferred_language' => 'en',
+                'timezone' => 'Asia/Taipei',
+                'mrn' => 'MRN-URO-001',
+                'height_cm' => 168.0,
+                'weight_kg' => 72.5,
+                'bmi' => 25.7,
+                'blood_type' => 'O+',
+                'allergies' => [],
+                'emergency_contact_name' => 'Wang Li-Hua',
+                'emergency_contact_phone' => '+886-912-345-679',
+                'emergency_contact_relationship' => 'Spouse',
+            ],
+
+            'visit' => [
+                'visit_type' => 'office_visit',
+                'class' => 'AMB',
+                'service_type' => 'urology_consultation',
+                'reason_for_visit' => 'Lower urinary tract symptoms — nocturia, weak stream, incomplete emptying',
+                'reason_codes' => [
+                    ['system' => 'ICD-10-CM', 'code' => 'N40.1', 'display' => 'Benign prostatic hyperplasia with LUTS'],
+                    ['system' => 'ICD-10-CM', 'code' => 'N32.0', 'display' => 'Bladder-neck obstruction'],
+                ],
+                'summary' => 'Patient presents with 2-year history of progressive LUTS. Uroflowmetry Qmax 8.2 mL/s, PVR 120mL, PSA 2.8. Diagnosed BPH with BOO. Started on Tamsulosin 0.4mg QD.',
+                'duration_minutes' => 35,
+                'days_ago' => 1,
+                'provider_notes_followup' => 'Follow up in 4 weeks for symptom assessment. Repeat uroflowmetry in 3 months.',
+            ],
+
+            'conditions' => [
+                [
+                    'code_system' => 'ICD-10-CM',
+                    'code' => 'N40.1',
+                    'code_display' => 'Benign prostatic hyperplasia with lower urinary tract symptoms',
+                    'category' => 'encounter-diagnosis',
+                    'clinical_status' => 'active',
+                    'verification_status' => 'confirmed',
+                    'severity' => 'moderate',
+                    'onset_weeks_ago' => 104,
+                    'clinical_notes' => 'Prostatic enlargement confirmed on DRE. Uroflowmetry shows obstructive pattern. Started alpha-blocker therapy.',
+                ],
+                [
+                    'code_system' => 'ICD-10-CM',
+                    'code' => 'N32.0',
+                    'code_display' => 'Bladder-neck obstruction',
+                    'category' => 'encounter-diagnosis',
+                    'clinical_status' => 'active',
+                    'verification_status' => 'confirmed',
+                    'severity' => 'moderate',
+                    'onset_weeks_ago' => 104,
+                    'clinical_notes' => 'Functional BOO demonstrated by uroflowmetry findings and elevated PVR.',
+                ],
+                [
+                    'code_system' => 'ICD-10-CM',
+                    'code' => 'I10',
+                    'code_display' => 'Essential hypertension',
+                    'category' => 'problem-list-item',
+                    'clinical_status' => 'active',
+                    'verification_status' => 'confirmed',
+                    'severity' => 'mild',
+                    'onset_weeks_ago' => 520,
+                    'clinical_notes' => 'Controlled on Amlodipine 5mg QD.',
+                ],
+            ],
+
+            'medications' => [
+                [
+                    'rxnorm_code' => '77492',
+                    'atc_code' => 'G04CA02',
+                    'generic_name' => 'Tamsulosin Hydrochloride',
+                    'brand_names' => ['Harnalidge', 'Flomax'],
+                    'display_name' => 'Tamsulosin 0.4mg capsule',
+                    'form' => 'capsule',
+                    'strength_value' => 0.4,
+                    'strength_unit' => 'mg',
+                    'ingredients' => ['tamsulosin hydrochloride'],
+                    'pregnancy_category' => 'N/A',
+                    'prescription' => [
+                        'dose_quantity' => 0.4,
+                        'dose_unit' => 'mg',
+                        'frequency' => 'QD',
+                        'frequency_text' => 'Once daily, 30 minutes after the same meal each day',
+                        'route' => 'oral',
+                        'duration_days' => 30,
+                        'number_of_refills' => 5,
+                        'special_instructions' => 'Take 30 minutes after a meal. May cause dizziness — stand up slowly. Report any abnormal ejaculation.',
+                        'indication' => 'Benign prostatic hyperplasia with LUTS',
+                        'indication_code' => 'N40.1',
+                        'substitution_allowed' => true,
+                    ],
+                ],
+            ],
+
+            'observations' => [
+                [
+                    'code_system' => 'LOINC', 'code' => '85354-9', 'code_display' => 'Blood pressure panel',
+                    'category' => 'vital-signs', 'value_type' => 'string',
+                    'value_string' => '138/85 mmHg', 'interpretation' => 'H',
+                    'specialty_data' => [
+                        'systolic' => ['value' => 138, 'unit' => 'mmHg', 'code' => '8480-6'],
+                        'diastolic' => ['value' => 85, 'unit' => 'mmHg', 'code' => '8462-4'],
+                    ],
+                ],
+                [
+                    'code_system' => 'LOINC', 'code' => '80944-2', 'code_display' => 'Uroflowmetry',
+                    'category' => 'exam', 'value_type' => 'string',
+                    'value_string' => 'Qmax 8.2 mL/s (reduced), voided volume 185 mL, flow time 42s. Obstructive pattern.',
+                    'specialty_data' => [
+                        'qmax' => ['value' => 8.2, 'unit' => 'mL/s'],
+                        'voided_volume' => ['value' => 185, 'unit' => 'mL'],
+                        'flow_time' => ['value' => 42, 'unit' => 's'],
+                        'pattern' => 'obstructive',
+                        'interpretation' => 'Reduced Qmax consistent with bladder outlet obstruction',
+                    ],
+                ],
+                [
+                    'code_system' => 'LOINC', 'code' => '29463-7', 'code_display' => 'Post-void residual volume',
+                    'category' => 'exam', 'value_type' => 'quantity',
+                    'value_quantity' => 120, 'value_unit' => 'mL',
+                    'reference_range_low' => 0, 'reference_range_high' => 50,
+                    'reference_range_text' => 'Normal: <50 mL', 'interpretation' => 'H',
+                ],
+                [
+                    'code_system' => 'LOINC', 'code' => '2857-1', 'code_display' => 'Prostate specific Ag [Mass/volume] in Serum or Plasma',
+                    'category' => 'laboratory', 'value_type' => 'quantity',
+                    'value_quantity' => 2.8, 'value_unit' => 'ng/mL',
+                    'reference_range_low' => 0, 'reference_range_high' => 4.0,
+                    'reference_range_text' => 'Normal: <4.0 ng/mL', 'interpretation' => 'N',
+                ],
+                [
+                    'code_system' => 'LOINC', 'code' => '2160-0', 'code_display' => 'Creatinine [Mass/volume] in Serum or Plasma',
+                    'category' => 'laboratory', 'value_type' => 'quantity',
+                    'value_quantity' => 1.1, 'value_unit' => 'mg/dL',
+                    'reference_range_low' => 0.7, 'reference_range_high' => 1.3,
+                    'reference_range_text' => '0.7-1.3 mg/dL', 'interpretation' => 'N',
+                ],
+                [
+                    'code_system' => 'LOINC', 'code' => '5811-5', 'code_display' => 'Urinalysis',
+                    'category' => 'laboratory', 'value_type' => 'string',
+                    'value_string' => 'Clear, no bacteria, no RBC, no WBC. pH 6.0. Specific gravity 1.020.',
+                    'interpretation' => 'N',
+                ],
+            ],
+
+            'visit_note' => [
+                'composition_type' => 'progress_note',
+                'chief_complaint' => 'Nocturia ×3, weak urinary stream, and incomplete emptying for 2 years',
+                'history_of_present_illness' => 'Mr. Wang is a 65-year-old male presenting with a 2-year history of progressive lower urinary tract symptoms including nocturia ×3, weak stream, hesitancy, intermittency, and sensation of incomplete emptying. He reports one near-retention episode last month. No hematuria or dysuria. Currently takes Amlodipine 5mg for hypertension and an OTC herbal prostate supplement. No family history of prostate cancer.',
+                'review_of_systems' => 'Constitutional: No fever, no weight loss. Genitourinary: LUTS as noted, no hematuria, no incontinence. Cardiovascular: Hypertension controlled on medication. GI: Normal appetite, regular bowel movements. Neurological: No focal deficits.',
+                'physical_exam' => 'General: Well-appearing male in no acute distress. Vitals: HR 72, BP 138/85, RR 16, SpO2 98% on RA. Abdomen: Soft, non-tender, no palpable bladder. DRE: Prostate grade II enlargement (~40g estimated), smooth, no nodules, no tenderness. Normal anal tone.',
+                'assessment' => 'Benign prostatic hyperplasia (BPH) with bladder outlet obstruction (BOO), manifested by LUTS. Uroflowmetry confirms obstructive pattern (Qmax 8.2 mL/s) with elevated PVR (120 mL). PSA 2.8 ng/mL within normal range — no suspicion for malignancy. IPSS estimated moderate (15-20 range).',
+                'assessment_codes' => [
+                    ['system' => 'ICD-10-CM', 'code' => 'N40.1', 'display' => 'BPH with LUTS'],
+                    ['system' => 'ICD-10-CM', 'code' => 'N32.0', 'display' => 'Bladder-neck obstruction'],
+                ],
+                'plan' => "1. Start Tamsulosin 0.4mg PO QD, 30 minutes after same meal daily.\n2. Discontinue herbal prostate supplement (unproven efficacy, possible drug interaction).\n3. Behavioral advice: limit evening fluids after 7 PM, double-void technique, avoid caffeine/alcohol before bed.\n4. Patient education: BPH is benign, not cancer. Explained BOO mechanism and role of alpha-blocker.\n5. If inadequate response in 3 months, consider adding Finasteride 5mg (5-ARI) for prostate volume reduction.\n6. Surgical options (TURP/HoLEP) discussed if medical therapy fails.",
+                'follow_up' => '4 weeks for symptom reassessment and medication tolerance. 3 months for repeat uroflowmetry and PVR. Annual PSA monitoring.',
+                'follow_up_timeframe' => '4 weeks',
+            ],
+
+            'chat_session' => [
+                'topic' => 'Post-visit follow-up: BPH/BOO diagnosis and Tamsulosin treatment',
+            ],
+
+            'weight_series' => [
+                ['day' => -29, 'kg' => 72.8],
+                ['day' => -25, 'kg' => 72.5],
+                ['day' => -21, 'kg' => 73.0],
+                ['day' => -17, 'kg' => 72.7],
+                ['day' => -13, 'kg' => 72.3],
+                ['day' => -9, 'kg' => 72.6],
+                ['day' => -5, 'kg' => 72.4],
+                ['day' => -2, 'kg' => 72.5],
+                ['day' => -1, 'kg' => 72.5],
+            ],
+        ],
+
         'pvcs' => [
             'key' => 'pvcs',
             'name' => 'PVCs / Palpitations',
@@ -743,6 +936,18 @@ return [
     */
 
     'practitioners' => [
+
+        'urologist-yuan' => [
+            'name' => 'Dr. Lun-Hsiang Yuan',
+            'email' => 'dr.yuan@demo.yuanuro.com',
+            'first_name' => 'Lun-Hsiang',
+            'last_name' => 'Yuan',
+            'npi' => '6789012345',
+            'license_number' => 'TW-URO-2024-001',
+            'medical_degree' => 'MD, PhD',
+            'primary_specialty' => 'urology',
+            'secondary_specialties' => ['robotic_surgery', 'urologic_oncology'],
+        ],
 
         'endocrinologist' => [
             'name' => 'Dr. Patel',
