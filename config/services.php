@@ -36,6 +36,8 @@ return [
         ],
     ],
 
+    'ai_provider' => env('AI_PROVIDER', 'anthropic'),
+
     'stt' => [
         'provider' => env('STT_PROVIDER', 'whisper'),
         'whisper_api_key' => env('OPENAI_API_KEY'),

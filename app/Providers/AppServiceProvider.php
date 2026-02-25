@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\AI\AnthropicClient;
+use App\Services\AI\GeminiClient;
 use App\Services\Stt\SpeechToTextProvider;
 use App\Services\Stt\WhisperProvider;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -22,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
                 default => new WhisperProvider,
             };
         });
+
+        // Use GeminiClient when AI_PROVIDER=gemini, otherwise default Anthropic.
+        if (config('services.ai_provider') === 'gemini') {
+            $this->app->bind(AnthropicClient::class, fn () => new GeminiClient);
+        }
     }
 
     /**
