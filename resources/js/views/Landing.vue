@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-emerald-50 to-white px-4">
+  <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#f4f8f3] to-white px-4">
     <div class="text-center max-w-2xl">
       <div class="flex justify-center mb-4">
-        <img src="/images/logo-full.png" alt="PostVisit.ai" class="h-14" />
+        <span class="font-bold text-5xl leading-none tracking-tight"><span class="text-[#4A6741]">PostVisit</span> <span class="text-[#1A365D]">Urology</span></span>
       </div>
       <p class="text-xl text-gray-600 mb-2">
         The bridge between your visit and your health.
@@ -14,9 +14,9 @@
       <!-- Watch Demo Video -->
       <button
         @click="showVideo = true"
-        class="mb-8 inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors group"
+        class="mb-8 inline-flex items-center gap-2 text-[#4A6741] hover:text-[#3d5636] transition-colors group"
       >
-        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 group-hover:bg-emerald-200 transition-colors">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-[#eef3ec] group-hover:bg-[#c4d8bf] transition-colors">
           <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20">
             <path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.891a1.5 1.5 0 000-2.538L6.3 2.841z" />
           </svg>
@@ -27,13 +27,13 @@
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <router-link
           to="/login"
-          class="px-8 py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-700 transition-colors text-lg"
+          class="px-8 py-3 bg-[#4A6741] text-white rounded-xl font-medium hover:bg-[#3d5636] transition-colors text-lg"
         >
           Try Demo
         </router-link>
         <router-link
           to="/login"
-          class="px-8 py-3 border-2 border-emerald-600 text-emerald-700 rounded-xl font-medium hover:bg-emerald-50 transition-colors text-lg"
+          class="px-8 py-3 border-2 border-[#4A6741] text-[#4A6741] rounded-xl font-medium hover:bg-[#f4f8f3] transition-colors text-lg"
         >
           Sign In
         </router-link>
@@ -42,11 +42,11 @@
 
     <footer class="mt-16 text-center max-w-md">
       <p class="text-xs text-gray-400">
-        PostVisit.ai helps you understand and act on your doctor's recommendations. It is not a substitute for professional medical judgment.
+        PostVisit Urology helps you understand and act on your doctor's recommendations. It is not a substitute for professional medical judgment.
       </p>
       <p class="mt-3 text-[11px] text-gray-400">
-        Built by <a href="https://nedoszytko.com" target="_blank" rel="noopener" class="underline hover:text-gray-600 transition-colors">Michal Nedoszytko</a>
-        for the <span class="font-medium">Built with Opus 4.6</span> hackathon by <a href="https://www.anthropic.com" target="_blank" rel="noopener" class="underline hover:text-gray-600 transition-colors">Anthropic</a>
+        Customized for Urology by <a href="https://yuanuro.com" target="_blank" rel="noopener" class="underline hover:text-gray-600 transition-colors">Dr. Lun-Hsiang Yuan</a>,
+        NTUH Yunlin Branch · Dept. of Urology
       </p>
     </footer>
 

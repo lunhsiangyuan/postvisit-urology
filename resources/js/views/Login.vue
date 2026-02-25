@@ -1,12 +1,12 @@
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-emerald-50/80 px-4 relative overflow-hidden">
+  <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#f4f8f3] via-white to-[#f4f8f3]/80 px-4 relative overflow-hidden">
     <!-- Subtle decorative circles -->
-    <div class="absolute -top-32 -right-32 w-80 h-80 bg-emerald-100/60 rounded-full blur-3xl" />
-    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-100/50 rounded-full blur-3xl" />
+    <div class="absolute -top-32 -right-32 w-80 h-80 bg-[#eef3ec]/60 rounded-full blur-3xl" />
+    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-[#eef3ec]/50 rounded-full blur-3xl" />
 
     <div class="w-full max-w-sm relative z-10">
       <div class="text-center mb-8">
-        <router-link to="/" class="inline-block"><img src="/images/logo-full.png" alt="PostVisit.ai" class="h-8 mx-auto" /></router-link>
+        <router-link to="/" class="inline-block"><span class="font-bold text-2xl leading-none tracking-tight"><span class="text-[#4A6741]">PostVisit</span> <span class="text-[#1A365D]">Urology</span></span></router-link>
         <p class="mt-3 text-sm text-gray-400">Your AI-powered medical visit companion</p>
       </div>
 
@@ -14,23 +14,23 @@
       <div
         v-if="demoLoginEnabled"
         :class="[
-          'login-demo-section mb-6 space-y-3 rounded-2xl border-2 border-emerald-400 bg-emerald-50/50 p-5 shadow-lg transition-all duration-700 ease-out',
+          'login-demo-section mb-6 space-y-3 rounded-2xl border-2 border-[#c4d8bf] bg-[#f4f8f3]/50 p-5 shadow-lg transition-all duration-700 ease-out',
           demoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         ]"
       >
-        <p class="text-center text-sm font-semibold text-emerald-800 uppercase tracking-wide">Try the Demo</p>
-        <p class="text-center text-xs text-emerald-600">No account needed — explore as patient or doctor</p>
+        <p class="text-center text-sm font-semibold text-[#4A6741] uppercase tracking-wide">Try the Demo</p>
+        <p class="text-center text-xs text-[#4A6741]">No account needed — explore as patient or doctor</p>
         <div class="flex gap-2">
           <button
             :disabled="loading"
-            class="flex-1 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors disabled:opacity-50 text-sm"
+            class="flex-1 py-2.5 bg-[#4A6741] text-white rounded-lg font-medium hover:bg-[#3d5636] transition-colors disabled:opacity-50 text-sm"
             @click="router.push('/demo/scenarios')"
           >
             Sign in as Patient
           </button>
           <button
             :disabled="loading"
-            class="flex-1 py-2.5 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50 text-sm"
+            class="flex-1 py-2.5 bg-[#1A365D] text-white rounded-lg font-medium hover:bg-[#142a4a] transition-colors disabled:opacity-50 text-sm"
             @click="demoLogin('doctor')"
           >
             Sign in as Doctor
@@ -52,7 +52,7 @@
             v-model="email"
             type="email"
             required
-            class="w-full px-3 py-2 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none bg-white/70"
+            class="w-full px-3 py-2 border border-[#c4d8bf] rounded-lg focus:ring-2 focus:ring-[#4A6741] focus:border-[#4A6741] outline-none bg-white/70"
             placeholder="you@example.com"
           />
         </div>
@@ -64,7 +64,7 @@
             v-model="password"
             type="password"
             required
-            class="w-full px-3 py-2 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none bg-white/70"
+            class="w-full px-3 py-2 border border-[#c4d8bf] rounded-lg focus:ring-2 focus:ring-[#4A6741] focus:border-[#4A6741] outline-none bg-white/70"
             placeholder="Your password"
           />
         </div>
@@ -74,7 +74,7 @@
         <button
           type="submit"
           :disabled="loading"
-          class="w-full py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors disabled:opacity-50"
+          class="w-full py-2.5 bg-[#4A6741] text-white rounded-lg font-medium hover:bg-[#3d5636] transition-colors disabled:opacity-50"
         >
           {{ loading ? 'Signing in...' : 'Sign In' }}
         </button>
@@ -82,12 +82,12 @@
 
       <p class="text-center text-sm text-gray-500 mt-4">
         Don't have an account?
-        <router-link to="/register" class="text-emerald-600 font-medium hover:text-emerald-700">Sign up</router-link>
+        <router-link to="/register" class="text-[#4A6741] font-medium hover:text-[#3d5636]">Sign up</router-link>
       </p>
     </div>
 
     <!-- Footer -->
-    <p class="mt-12 text-xs text-gray-300 relative z-10">Powered by Claude Opus 4.6</p>
+    <p class="mt-12 text-xs text-gray-300 relative z-10">PostVisit Urology · NTUH Yunlin Branch · Dept. of Urology</p>
   </div>
 </template>
 

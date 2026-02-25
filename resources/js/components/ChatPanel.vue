@@ -5,25 +5,25 @@
       embedded
         ? 'w-full h-full rounded-2xl border shadow-sm'
         : 'fixed inset-y-0 right-0 w-full sm:w-96 border-l shadow-xl z-50',
-      highlight ? 'border-emerald-400 shadow-lg shadow-emerald-200/60 ring-2 ring-emerald-300 animate-[chat-flash_1.5s_ease-out]' : 'border-gray-200'
+      highlight ? 'border-[#c4d8bf] shadow-lg shadow-[#c4d8bf]/60 ring-2 ring-[#c4d8bf] animate-[chat-flash_1.5s_ease-out]' : 'border-gray-200'
     ]"
   >
     <!-- Header -->
     <div class="h-16 border-b border-gray-200 flex items-center justify-between px-4 shrink-0">
       <div class="flex items-center gap-2">
-        <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+        <div class="w-8 h-8 bg-[#eef3ec] rounded-full flex items-center justify-center">
           <img src="/images/logo-icon.png" alt="" class="h-4 w-auto" />
         </div>
         <div>
-          <h3 class="font-semibold text-gray-800 text-sm">PostVisit AI</h3>
-          <p v-if="chatStore.loading" class="text-[10px] text-emerald-600 font-medium">Reviewing your visit...</p>
+          <h3 class="font-semibold text-gray-800 text-sm">PostVisit Urology AI</h3>
+          <p v-if="chatStore.loading" class="text-[10px] text-[#4A6741] font-medium">Reviewing your visit...</p>
           <p v-else class="text-[10px] text-gray-400">Ask anything about your visit</p>
         </div>
       </div>
       <div class="flex items-center gap-1">
         <button
           v-if="embedded"
-          class="text-gray-400 hover:text-emerald-600 transition-colors p-1 rounded-lg hover:bg-emerald-50"
+          class="text-gray-400 hover:text-[#4A6741] transition-colors p-1 rounded-lg hover:bg-[#f4f8f3]"
           :title="maximized ? 'Restore chat size' : 'Maximize chat'"
           @click="$emit('toggle-maximize')"
         >
@@ -47,11 +47,11 @@
 
     <!-- Welcome message when empty -->
     <div v-if="!chatStore.messages.length && !chatStore.loading" class="flex-1 flex flex-col items-center p-6 pt-12 text-center overflow-y-auto">
-      <div class="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-4">
+      <div class="w-16 h-16 bg-[#f4f8f3] rounded-2xl flex items-center justify-center mb-4">
         <img src="/images/logo-icon.png" alt="" class="h-8 w-auto" />
       </div>
       <h4 class="font-semibold text-gray-800 mb-1">Your visit assistant</h4>
-      <p v-if="initialContext" class="text-xs text-emerald-600 font-medium mb-2 px-3 py-1 bg-emerald-50 rounded-full inline-block capitalize">
+      <p v-if="initialContext" class="text-xs text-[#4A6741] font-medium mb-2 px-3 py-1 bg-[#f4f8f3] rounded-full inline-block capitalize">
         {{ suggestionLabel }}
       </p>
       <p class="text-sm text-gray-500 mb-6 max-w-[240px]">

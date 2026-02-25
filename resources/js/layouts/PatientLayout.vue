@@ -29,13 +29,13 @@
     </div>
 
     <!-- Header -->
-    <header :class="['bg-white border-b border-emerald-200 sticky z-40', isDemoUser ? 'top-10' : 'top-0']" :style="chatMarginStyle">
+    <header :class="['bg-white border-b border-[#c4d8bf] sticky z-40', isDemoUser ? 'top-10' : 'top-0']" :style="chatMarginStyle">
       <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <router-link to="/profile" class="flex items-center">
-            <img src="/images/logo-full.png" alt="PostVisit.ai" class="h-7" />
+            <span class="font-semibold text-base leading-none tracking-tight"><span class="text-[#4A6741]">PostVisit</span> <span class="text-[#1A365D]">Urology</span></span>
           </router-link>
-          <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
+          <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#eef3ec] text-[#4A6741]">
             Patient Panel
           </span>
         </div>
@@ -44,25 +44,25 @@
         <nav class="hidden md:flex items-center gap-4">
           <router-link
             to="/profile"
-            :class="['text-sm transition-colors', isActive('/profile') ? 'text-emerald-700 font-semibold' : 'text-gray-600 hover:text-emerald-700']"
+            :class="['text-sm transition-colors', isActive('/profile') ? 'text-[#4A6741] font-semibold' : 'text-gray-600 hover:text-[#4A6741]']"
           >
             Profile
           </router-link>
           <router-link
             to="/health"
-            :class="['text-sm transition-colors', isActive('/health') ? 'text-emerald-700 font-semibold' : 'text-gray-600 hover:text-emerald-700']"
+            :class="['text-sm transition-colors', isActive('/health') ? 'text-[#4A6741] font-semibold' : 'text-gray-600 hover:text-[#4A6741]']"
           >
             My Health
           </router-link>
           <router-link
             to="/library"
-            :class="['text-sm transition-colors', isActive('/library') ? 'text-emerald-700 font-semibold' : 'text-gray-600 hover:text-emerald-700']"
+            :class="['text-sm transition-colors', isActive('/library') ? 'text-[#4A6741] font-semibold' : 'text-gray-600 hover:text-[#4A6741]']"
           >
             Reference
           </router-link>
           <router-link
             to="/scribe"
-            :class="['text-sm transition-colors flex items-center gap-1.5', isActive('/scribe') ? 'text-emerald-700 font-semibold' : 'text-gray-600 hover:text-emerald-700']"
+            :class="['text-sm transition-colors flex items-center gap-1.5', isActive('/scribe') ? 'text-[#4A6741] font-semibold' : 'text-gray-600 hover:text-[#4A6741]']"
           >
             <span class="relative flex h-2.5 w-2.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -81,7 +81,7 @@
                 :alt="auth.user.name"
                 class="w-7 h-7 rounded-full object-cover"
               />
-              <div v-else class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold">
+              <div v-else class="w-7 h-7 rounded-full bg-[#eef3ec] text-[#4A6741] flex items-center justify-center text-xs font-bold">
                 {{ initials }}
               </div>
               <span class="text-sm text-gray-700 font-medium">{{ auth.user.name }}</span>
@@ -95,7 +95,7 @@
             >
               <router-link
                 to="/settings"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741] transition-colors"
                 @click="dropdownOpen = false"
               >
                 Settings
@@ -112,7 +112,7 @@
 
         <!-- Mobile hamburger -->
         <button
-          class="md:hidden p-2 text-gray-600 hover:text-emerald-700 transition-colors"
+          class="md:hidden p-2 text-gray-600 hover:text-[#4A6741] transition-colors"
           @click="mobileOpen = !mobileOpen"
         >
           <svg v-if="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,7 +125,7 @@
       </div>
 
       <!-- Mobile menu -->
-      <div v-if="mobileOpen" class="md:hidden border-t border-emerald-100 bg-white">
+      <div v-if="mobileOpen" class="md:hidden border-t border-[#d5e8d0] bg-white">
         <div class="px-4 py-3 space-y-1">
           <div v-if="auth.user" class="flex items-center gap-3 px-3 py-2 mb-1 border-b border-gray-100">
             <img
@@ -134,38 +134,38 @@
               :alt="auth.user.name"
               class="w-8 h-8 rounded-full object-cover"
             />
-            <div v-else class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-bold">
+            <div v-else class="w-8 h-8 rounded-full bg-[#eef3ec] text-[#4A6741] flex items-center justify-center text-sm font-bold">
               {{ initials }}
             </div>
             <div>
               <p class="text-sm font-medium text-gray-900">{{ auth.user.name }}</p>
-              <p class="text-xs text-emerald-600 font-medium">Patient Panel</p>
+              <p class="text-xs text-[#4A6741] font-medium">Patient Panel</p>
             </div>
           </div>
           <router-link
             to="/profile"
-            :class="['block px-3 py-2 rounded-lg text-sm transition-colors', isActive('/profile') ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-gray-700 hover:bg-emerald-50 hover:text-emerald-700']"
+            :class="['block px-3 py-2 rounded-lg text-sm transition-colors', isActive('/profile') ? 'bg-[#f4f8f3] text-[#4A6741] font-semibold' : 'text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741]']"
             @click="mobileOpen = false"
           >
             Profile
           </router-link>
           <router-link
             to="/health"
-            :class="['block px-3 py-2 rounded-lg text-sm transition-colors', isActive('/health') ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-gray-700 hover:bg-emerald-50 hover:text-emerald-700']"
+            :class="['block px-3 py-2 rounded-lg text-sm transition-colors', isActive('/health') ? 'bg-[#f4f8f3] text-[#4A6741] font-semibold' : 'text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741]']"
             @click="mobileOpen = false"
           >
             My Health
           </router-link>
           <router-link
             to="/library"
-            :class="['block px-3 py-2 rounded-lg text-sm transition-colors', isActive('/library') ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-gray-700 hover:bg-emerald-50 hover:text-emerald-700']"
+            :class="['block px-3 py-2 rounded-lg text-sm transition-colors', isActive('/library') ? 'bg-[#f4f8f3] text-[#4A6741] font-semibold' : 'text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741]']"
             @click="mobileOpen = false"
           >
             Reference
           </router-link>
           <router-link
             to="/scribe"
-            :class="['flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors', isActive('/scribe') ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-gray-700 hover:bg-emerald-50 hover:text-emerald-700']"
+            :class="['flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors', isActive('/scribe') ? 'bg-[#f4f8f3] text-[#4A6741] font-semibold' : 'text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741]']"
             @click="mobileOpen = false"
           >
             <span class="relative flex h-2.5 w-2.5">
@@ -176,7 +176,7 @@
           </router-link>
           <router-link
             to="/settings"
-            class="block px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
+            class="block px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741] transition-colors"
             @click="mobileOpen = false"
           >
             Settings
@@ -210,8 +210,8 @@
         created for demonstration purposes only, and do not depict any real person or actual medical encounter.
       </p>
       <div class="mt-3 text-[11px] text-gray-400">
-        Built by <a href="https://nedoszytko.com" target="_blank" rel="noopener" class="underline hover:text-gray-600 transition-colors">Michal Nedoszytko</a>
-        for the <span class="font-medium">Built with Opus 4.6</span> hackathon by <a href="https://www.anthropic.com" target="_blank" rel="noopener" class="underline hover:text-gray-600 transition-colors">Anthropic</a>
+        Customized for Urology by <a href="https://yuanuro.com" target="_blank" rel="noopener" class="underline hover:text-gray-600 transition-colors">Dr. Lun-Hsiang Yuan</a>,
+        <span class="font-medium">NTUH Yunlin Branch · Dept. of Urology</span>
       </div>
       <p class="text-[10px] text-gray-300 mt-1">build {{ gitHash }}</p>
       </footer>
@@ -225,7 +225,7 @@
     >
       <!-- Drag handle to resize -->
       <div
-        class="absolute left-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-emerald-400/40 active:bg-emerald-400/60 transition-colors z-10"
+        class="absolute left-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#4A6741]/40 active:bg-[#4A6741]/60 transition-colors z-10"
         @mousedown.prevent="startResize"
       />
       <ChatPanel
@@ -244,11 +244,11 @@
       <!-- Floating chat button (shown when chat is closed, or always on mobile) -->
       <button
         v-if="!chatOpen"
-        class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-emerald-50 hover:bg-emerald-100 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center group"
-        title="Ask PostVisit AI"
+        class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#f4f8f3] hover:bg-[#eef3ec] rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center group"
+        title="Ask Your Urology AI"
         @click="chatOpen = true"
       >
-        <img src="/images/logo-icon.png" alt="PostVisit" class="h-7 w-auto group-hover:scale-110 transition-transform" />
+        <img src="/images/logo-icon.png" alt="PostVisit Urology" class="h-7 w-auto group-hover:scale-110 transition-transform" />
         <span class="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full animate-pulse"></span>
       </button>
 
@@ -401,7 +401,8 @@ onBeforeUnmount(() => {
 });
 
 const isDemoUser = computed(() => {
-    return auth.user?.email?.endsWith('@demo.postvisit.ai') ?? false;
+    const email = auth.user?.email ?? '';
+    return email.endsWith('@demo.yuanuro.com') || email.endsWith('@demo.postvisit.ai');
 });
 
 // Chat panel top offset: header (64px) + demo banner (40px) if present

@@ -10,12 +10,20 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* yuanuro.com brand colors */
+    --color-brand-patient: #4A6741;      /* forest green — patient portal */
+    --color-brand-patient-light: #eef3ec;
+    --color-brand-patient-mid: #c4d8bf;
+    --color-brand-doctor: #1A365D;       /* navy — doctor portal */
+    --color-brand-doctor-light: #e8eef5;
+    --color-brand-doctor-mid: #b3c5d9;
 }
 
-/* AI document analysis — pulsing background */
+/* AI document analysis — pulsing background (forest green brand) */
 @keyframes analysing-pulse {
-    0%, 100% { background-color: rgb(236 253 245 / 0.6); }
-    50% { background-color: rgb(209 250 229 / 0.8); }
+    0%, 100% { background-color: rgb(238 243 236 / 0.6); }
+    50% { background-color: rgb(196 216 191 / 0.8); }
 }
 
 /* AI document analysis — indeterminate progress bar */
@@ -27,10 +35,10 @@
 
 /* Send button glow when chat opens with pre-filled context */
 @keyframes send-glow {
-    0% { box-shadow: 0 0 0 0 rgb(16 185 129 / 0.7); }
-    40% { box-shadow: 0 0 0 8px rgb(16 185 129 / 0.3); }
-    70% { box-shadow: 0 0 0 12px rgb(16 185 129 / 0); }
-    100% { box-shadow: 0 0 0 0 rgb(16 185 129 / 0); }
+    0% { box-shadow: 0 0 0 0 rgb(74 103 65 / 0.7); }
+    40% { box-shadow: 0 0 0 8px rgb(74 103 65 / 0.3); }
+    70% { box-shadow: 0 0 0 12px rgb(74 103 65 / 0); }
+    100% { box-shadow: 0 0 0 0 rgb(74 103 65 / 0); }
 }
 
 .animate-send-glow {
@@ -39,8 +47,8 @@
 
 /* Chat panel flash when "Ask" is clicked */
 @keyframes chat-flash {
-    0% { box-shadow: 0 0 20px 4px rgb(16 185 129 / 0.4); }
-    50% { box-shadow: 0 0 12px 2px rgb(16 185 129 / 0.2); }
+    0% { box-shadow: 0 0 20px 4px rgb(74 103 65 / 0.4); }
+    50% { box-shadow: 0 0 12px 2px rgb(74 103 65 / 0.2); }
     100% { box-shadow: none; }
 }
 

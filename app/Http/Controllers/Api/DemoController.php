@@ -25,14 +25,17 @@ class DemoController extends Controller
         $role = $request->input('role', 'patient');
 
         $email = $role === 'doctor'
-            ? 'doctor@demo.postvisit.ai'
-            : 'patient@demo.postvisit.ai';
+            ? 'doctor@demo.yuanuro.com'
+            : 'patient@demo.yuanuro.com';
 
-        $user = User::where('email', $email)->first();
+        // Fallback to original postvisit.ai emails for backward compatibility
+        $user = User::where('email', $email)
+            ->orWhere('email', str_replace('@demo.yuanuro.com', '@demo.postvisit.ai', $email))
+            ->first();
 
         if (! $user) {
             return response()->json([
-                'error' => ['message' => 'Demo data not seeded. Run: php artisan db:seed --class=DemoSeeder'],
+                'error' => ['message' => 'Demo data not seeded. Run: php artisan db:seed --class=UrologyDemoSeeder'],
             ], 404);
         }
 
@@ -60,13 +63,15 @@ class DemoController extends Controller
 
     public function status(): JsonResponse
     {
-        $hasDemoData = User::where('email', 'patient@demo.postvisit.ai')->exists();
+        $hasDemoData = User::where('email', 'patient@demo.yuanuro.com')
+            ->orWhere('email', 'patient@demo.postvisit.ai')
+            ->exists();
 
         return response()->json([
             'data' => [
                 'seeded' => $hasDemoData,
-                'patient_email' => 'patient@demo.postvisit.ai',
-                'doctor_email' => 'doctor@demo.postvisit.ai',
+                'patient_email' => 'patient@demo.yuanuro.com',
+                'doctor_email' => 'doctor@demo.yuanuro.com',
                 'password' => 'password',
             ],
         ]);
@@ -93,7 +98,9 @@ class DemoController extends Controller
 
     public function simulateAlert(): JsonResponse
     {
-        $doctorUser = User::where('email', 'doctor@demo.postvisit.ai')->first();
+        $doctorUser = User::where('email', 'doctor@demo.yuanuro.com')
+            ->orWhere('email', 'doctor@demo.postvisit.ai')
+            ->first();
 
         if (! $doctorUser) {
             return response()->json(['error' => ['message' => 'Demo data not seeded']], 404);
