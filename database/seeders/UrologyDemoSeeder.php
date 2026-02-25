@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\ChatMessage;
+use App\Models\ChatSession;
 use App\Models\Condition;
 use App\Models\Consent;
 use App\Models\MedicalReference;
@@ -558,12 +560,21 @@ class UrologyDemoSeeder extends Seeder
         $orphanPractitioners = Practitioner::whereIn('email', ['doctor@demo.yuanuro.com'])->pluck('id');
         $practitionerIds = $practitionerIds->merge($orphanPractitioners)->unique()->values();
 
-        // Step 1: delete visit children (no FK back to users/patients)
+        // Step 1: delete visit children — must go before visits (FK constraints)
         if ($patientIds->isNotEmpty()) {
             $visitIds = Visit::whereIn('patient_id', $patientIds)->pluck('id');
             if ($visitIds->isNotEmpty()) {
+                // 1a. ChatMessage → ChatSession (FK: chat_sessions.visit_id → visits)
+                $chatSessionIds = ChatSession::whereIn('visit_id', $visitIds)->pluck('id');
+                if ($chatSessionIds->isNotEmpty()) {
+                    ChatMessage::whereIn('session_id', $chatSessionIds)->delete();
+                    ChatSession::whereIn('id', $chatSessionIds)->delete();
+                }
+                // 1b. All other visit-referenced tables
                 VisitNote::whereIn('visit_id', $visitIds)->delete();
                 Transcript::whereIn('visit_id', $visitIds)->delete();
+                \App\Models\Document::whereIn('visit_id', $visitIds)->delete();
+                \App\Models\Notification::whereIn('visit_id', $visitIds)->delete();
             }
             Observation::whereIn('patient_id', $patientIds)->delete();
             Condition::whereIn('patient_id', $patientIds)->delete();
@@ -573,29 +584,38 @@ class UrologyDemoSeeder extends Seeder
 
         MedicalReference::where('specialty', 'urology')->delete();
 
-        // Step 2: delete visits (visits.created_by → users; must go before users)
+        // Step 2: delete audit_logs (FK: audit_logs.user_id → users, NOT nullable)
+        if ($userIds->isNotEmpty()) {
+            \App\Models\AuditLog::whereIn('user_id', $userIds)->delete();
+        }
+
+        // Step 3: nullify created_by FKs pointing to users (nullable FKs on visits, patients, etc.)
+        if ($userIds->isNotEmpty()) {
+            Visit::whereIn('created_by', $userIds)->update(['created_by' => null]);
+            Patient::withTrashed()->whereIn('created_by', $userIds)->update(['created_by' => null]);
+        }
+
+        // Step 4: delete visits
         if ($patientIds->isNotEmpty()) {
             Visit::whereIn('patient_id', $patientIds)->delete();
         }
 
-        // Step 3: delete users (users.patient_id → patients; users.practitioner_id → practitioners)
-        // Must delete users BEFORE patients AND practitioners
+        // Step 5: delete users (users.patient_id → patients; users.practitioner_id → practitioners)
         if ($userIds->isNotEmpty()) {
             User::whereIn('id', $userIds)->delete();
         }
 
-        // Step 4: forceDelete patients — Patient uses SoftDeletes; regular delete() leaves
-        // email in DB with unique constraint active; forceDelete() truly removes the row
+        // Step 6: forceDelete patients — SoftDeletes keeps email with unique constraint
         if ($patientIds->isNotEmpty()) {
             Patient::withTrashed()->whereIn('id', $patientIds)->forceDelete();
         }
 
-        // Step 5: delete practitioners (now safe — users gone)
+        // Step 7: delete practitioners (safe — users gone)
         if ($practitionerIds->isNotEmpty()) {
             Practitioner::whereIn('id', $practitionerIds)->delete();
         }
 
-        // Step 6: delete organization
+        // Step 8: delete organization
         Organization::where('type', 'urology')->delete();
     }
 }
