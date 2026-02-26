@@ -4,10 +4,10 @@
       <div class="text-center mb-8">
         <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center justify-center gap-3">
           <img src="/images/logo-icon.png" alt="" class="h-8" />
-          Select Demo Scenario
+          {{ $t('demo.selectScenario') }}
         </h1>
         <p class="text-sm text-gray-500 mt-2 max-w-2xl mx-auto">
-          Select a patient to start a demo session. Each scenario loads a realistic visit transcript and clinical data relevant to the individual pathology.
+          {{ $t('demo.selectDescription') }}
         </p>
       </div>
 
@@ -38,7 +38,7 @@
           class="px-6 py-2 bg-[#4A6741] text-white rounded-lg hover:bg-[#3d5636] transition-colors"
           @click="loadScenarios"
         >
-          Retry
+          {{ $t('demo.retry') }}
         </button>
       </div>
 
@@ -58,7 +58,7 @@
 
         <!-- Specialty Filter -->
         <div class="mt-8 flex flex-wrap items-center gap-2">
-          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider mr-1">Specialty:</span>
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider mr-1">{{ $t('specialty.label') }}:</span>
           <button
             v-for="spec in allSpecialties"
             :key="spec.name"
@@ -72,7 +72,7 @@
             ]"
             @click="handleSpecialtyClick(spec)"
           >
-            {{ spec.label }}
+            {{ $t('specialty.' + spec.name) }}
             <span v-if="spec.available && spec.count > 0" class="ml-1 text-[10px] opacity-60">{{ spec.count }}</span>
           </button>
         </div>
@@ -84,7 +84,7 @@
             class="w-full py-3 text-sm font-medium text-gray-500 hover:text-[#4A6741] transition-colors flex items-center justify-center gap-2 bg-white rounded-lg border border-gray-200 hover:border-[#c4d8bf]"
             @click="showMore = true"
           >
-            <span>Show {{ otherScenarios.length }} more scenarios</span>
+            <span>{{ $t('demo.showMore', { n: otherScenarios.length }) }}</span>
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
@@ -107,7 +107,7 @@
               class="mt-4 w-full py-2 text-xs text-gray-400 hover:text-gray-600 transition-colors"
               @click="showMore = false; activeSpecialty = null"
             >
-              Show less
+              {{ $t('demo.showLess') }}
             </button>
           </div>
         </div>
@@ -119,13 +119,12 @@
 
       <!-- Disclaimer -->
       <p class="text-center text-[11px] text-gray-400 mt-8 max-w-2xl mx-auto leading-relaxed">
-        All patient photographs are AI-generated and do not depict real individuals.
-        Clinical scenarios span urology, cardiology, endocrinology, gastroenterology, and pulmonology. All names, demographics, and medical data are entirely fictional.
+        {{ $t('demo.photoDisclaimer') }}
       </p>
 
       <div class="text-center mt-4">
         <router-link to="/login" class="text-sm text-gray-400 hover:text-[#4A6741] transition-colors">
-          Back to Sign In
+          {{ $t('demo.backToSignIn') }}
         </router-link>
       </div>
     </div>
@@ -134,11 +133,13 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { useApi } from '@/composables/useApi';
 import { useRouter } from 'vue-router';
 import ScenarioCard from '@/components/ScenarioCard.vue';
 
+const { t } = useI18n();
 const auth = useAuthStore();
 const router = useRouter();
 const api = useApi();
@@ -165,15 +166,8 @@ const filteredOtherScenarios = computed(() => {
 });
 
 const KNOWN_SPECIALTIES = [
-  { name: 'urology', label: 'Urology' },
-  { name: 'cardiology', label: 'Cardiology' },
-  { name: 'endocrinology', label: 'Endocrinology' },
-  { name: 'gastroenterology', label: 'Gastroenterology' },
-  { name: 'pulmonology', label: 'Pulmonology' },
-  { name: 'neurology', label: 'Neurology' },
-  { name: 'orthopedics', label: 'Orthopedics' },
-  { name: 'oncology', label: 'Oncology' },
-  { name: 'rheumatology', label: 'Rheumatology' },
+  'urology', 'cardiology', 'endocrinology', 'gastroenterology',
+  'pulmonology', 'neurology', 'orthopedics', 'oncology', 'rheumatology',
 ];
 
 const allSpecialties = computed(() => {
@@ -181,10 +175,10 @@ const allSpecialties = computed(() => {
   scenarios.value.forEach(s => {
     counts[s.specialty] = (counts[s.specialty] || 0) + 1;
   });
-  return KNOWN_SPECIALTIES.map(spec => ({
-    ...spec,
-    available: !!counts[spec.name],
-    count: counts[spec.name] || 0,
+  return KNOWN_SPECIALTIES.map(name => ({
+    name,
+    available: !!counts[name],
+    count: counts[name] || 0,
   }));
 });
 
@@ -209,7 +203,7 @@ async function loadScenarios() {
     const { data } = await api.get('/demo/scenarios', { skipErrorToast: true });
     scenarios.value = data.data;
   } catch (err) {
-    fetchError.value = 'Could not load demo scenarios. Please try again.';
+    fetchError.value = t('demo.loadError');
   } finally {
     loadingScenarios.value = false;
   }
@@ -224,7 +218,7 @@ async function selectScenario(key) {
     auth.token = data.data.token;
     router.push('/profile');
   } catch (err) {
-    startError.value = err.response?.data?.error?.message || 'Failed to start scenario. Please try again.';
+    startError.value = err.response?.data?.error?.message || t('demo.startError');
     startingScenario.value = null;
   }
 }

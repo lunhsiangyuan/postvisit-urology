@@ -15,16 +15,16 @@
           <img src="/images/logo-icon.png" alt="" class="h-4 w-auto" />
         </div>
         <div>
-          <h3 class="font-semibold text-gray-800 text-sm">PostVisit Urology AI</h3>
-          <p v-if="chatStore.loading" class="text-[10px] text-[#4A6741] font-medium">Reviewing your visit...</p>
-          <p v-else class="text-[10px] text-gray-400">Ask anything about your visit</p>
+          <h3 class="font-semibold text-gray-800 text-sm">{{ $t('chat.title') }}</h3>
+          <p v-if="chatStore.loading" class="text-[10px] text-[#4A6741] font-medium">{{ $t('chat.reviewing') }}</p>
+          <p v-else class="text-[10px] text-gray-400">{{ $t('chat.askAnything') }}</p>
         </div>
       </div>
       <div class="flex items-center gap-1">
         <button
           v-if="embedded"
           class="text-gray-400 hover:text-[#4A6741] transition-colors p-1 rounded-lg hover:bg-[#f4f8f3]"
-          :title="maximized ? 'Restore chat size' : 'Maximize chat'"
+          :title="maximized ? $t('chat.restoreChat') : $t('chat.maximizeChat')"
           @click="$emit('toggle-maximize')"
         >
           <!-- Maximize icon -->
@@ -50,12 +50,12 @@
       <div class="w-16 h-16 bg-[#f4f8f3] rounded-2xl flex items-center justify-center mb-4">
         <img src="/images/logo-icon.png" alt="" class="h-8 w-auto" />
       </div>
-      <h4 class="font-semibold text-gray-800 mb-1">Your visit assistant</h4>
+      <h4 class="font-semibold text-gray-800 mb-1">{{ $t('chat.assistant') }}</h4>
       <p v-if="initialContext" class="text-xs text-[#4A6741] font-medium mb-2 px-3 py-1 bg-[#f4f8f3] rounded-full inline-block capitalize">
         {{ suggestionLabel }}
       </p>
       <p class="text-sm text-gray-500 mb-6 max-w-[240px]">
-        {{ initialContext ? `Ask me anything about your ${initialContext.toLowerCase()}.` : 'I have the full context of your visit. Ask me anything about your diagnosis, medications, or next steps.' }}
+        {{ initialContext ? $t('chat.askAboutContext', { context: initialContext.toLowerCase() }) : $t('chat.askAboutVisit') }}
       </p>
       <div class="space-y-2 w-full">
         <button
@@ -129,7 +129,7 @@
             <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
             </svg>
-            Powered by Opus 4.6
+            {{ $t('chat.poweredBy') }}
           </span>
           <!-- Effort level badge (skip medium — it's the default, don't clutter) -->
           <span
@@ -137,27 +137,27 @@
             class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-medium bg-gray-100 text-gray-500 border border-gray-200/50"
             title="Simple factual question — minimal thinking budget"
           >
-            Quick answer
+            {{ $t('chat.effortLow') }}
           </span>
           <span
             v-else-if="msg.effort === 'high'"
             class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-medium bg-amber-50 text-amber-600 border border-amber-200/50"
             title="Drug safety or interaction question — deep thinking budget"
           >
-            Deep analysis
+            {{ $t('chat.effortHigh') }}
           </span>
           <span
             v-else-if="msg.effort === 'max'"
             class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-medium bg-red-50 text-red-600 border border-red-200/50"
             title="Safety-critical question — maximum thinking budget"
           >
-            Clinical reasoning
+            {{ $t('chat.effortMax') }}
           </span>
           <div class="flex items-center gap-0.5 ml-auto">
             <!-- Copy -->
             <button
               class="p-1 rounded text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
-              title="Copy response"
+              :title="$t('chat.copyResponse')"
               @click="copyResponse(msg)"
             >
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -167,7 +167,7 @@
             <!-- Print -->
             <button
               class="p-1 rounded text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
-              title="Print response"
+              :title="$t('chat.printResponse')"
               @click="printResponse(msg)"
             >
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -178,7 +178,7 @@
             <button
               v-if="canShare"
               class="p-1 rounded text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
-              title="Share response"
+              :title="$t('chat.shareResponse')"
               @click="shareResponse(msg)"
             >
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -225,7 +225,7 @@
             ? 'bg-emerald-100 text-emerald-700 ring-2 ring-emerald-300'
             : 'bg-gray-100 text-gray-500 hover:bg-emerald-50 hover:text-emerald-600'"
           @click="showContextMenu = !showContextMenu"
-          title="Select context sources"
+          :title="$t('chat.selectContextSources')"
         >
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -246,7 +246,7 @@
             class="absolute bottom-12 left-0 w-60 bg-white rounded-xl shadow-lg border border-gray-200 p-3 z-50"
           >
             <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-semibold text-gray-700">Context Sources</span>
+              <span class="text-xs font-semibold text-gray-700">{{ $t('chat.contextSources') }}</span>
               <span class="text-[10px] text-gray-400">{{ selectedSources.length }}/{{ contextSources.length }}</span>
             </div>
             <div class="space-y-1">
@@ -282,8 +282,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                 </svg>
                 <div class="flex-1 min-w-0">
-                  <div class="text-sm font-medium text-gray-800">{{ src.label }}</div>
-                  <div class="text-[10px] text-gray-400">{{ src.description }}</div>
+                  <div class="text-sm font-medium text-gray-800">{{ $t('chat.source.' + src.id) }}</div>
+                  <div class="text-[10px] text-gray-400">{{ $t('chat.source.' + src.id + 'Desc') }}</div>
                 </div>
               </label>
             </div>
@@ -293,14 +293,14 @@
                 class="text-[11px] text-emerald-600 hover:text-emerald-700 font-medium"
                 @click="selectAllSources"
               >
-                Select All
+                {{ $t('chat.selectAll') }}
               </button>
               <button
                 type="button"
                 class="text-[11px] text-gray-500 hover:text-gray-700 font-medium"
                 @click="showContextMenu = false"
               >
-                Done
+                {{ $t('chat.done') }}
               </button>
             </div>
           </div>
@@ -310,7 +310,7 @@
       <input
         v-model="message"
         type="text"
-        placeholder="Ask about your visit..."
+        :placeholder="$t('chat.inputPlaceholder')"
         class="flex-1 px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
         :disabled="chatStore.loading"
       />
@@ -327,7 +327,7 @@
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
         </svg>
-        <span v-else>Send</span>
+        <span v-else>{{ $t('chat.send') }}</span>
       </button>
     </form>
   </div>
@@ -335,6 +335,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick, watch, reactive } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useChatStore } from '@/stores/chat';
 import { useVisitStore } from '@/stores/visit';
@@ -394,6 +395,7 @@ const props = defineProps({
 
 defineEmits(['close', 'toggle-maximize']);
 
+const { t } = useI18n();
 const router = useRouter();
 const chatStore = useChatStore();
 const visitStore = useVisitStore();
@@ -407,11 +409,11 @@ const inlineSuggestions = ref([]);
 const pendingContext = ref('');
 
 const contextSources = reactive([
-    { id: 'visit', label: 'Visit Notes', icon: '📋', description: 'SOAP notes, transcript', selected: true },
-    { id: 'health', label: 'Health Data', icon: '❤️', description: 'Biometrics, vitals, labs, device data', selected: true },
-    { id: 'medications', label: 'Medications', icon: '💊', description: 'Prescriptions, drug info', selected: true },
-    { id: 'references', label: 'Medical References', icon: '📚', description: 'Guidelines, conditions', selected: true },
-    { id: 'documents', label: 'Documents', icon: '📄', description: 'Uploaded files, reports', selected: false },
+    { id: 'visit', selected: true },
+    { id: 'health', selected: true },
+    { id: 'medications', selected: true },
+    { id: 'references', selected: true },
+    { id: 'documents', selected: false },
 ]);
 
 // Map context keys to which sources should be prioritized (selected)
@@ -891,7 +893,7 @@ function getPlainText(msg) {
 async function copyResponse(msg) {
     try {
         await navigator.clipboard.writeText(getPlainText(msg));
-        copyToast.value = 'Copied!';
+        copyToast.value = t('chat.copied');
         setTimeout(() => { copyToast.value = ''; }, 2000);
     } catch {
         // fallback: select nothing

@@ -7,7 +7,7 @@
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
-          <span>Demo Mode</span>
+          <span>{{ $t('demo.mode') }}</span>
           <span class="hidden sm:inline text-amber-700">&mdash; {{ auth.user?.name }}</span>
         </div>
         <div class="flex items-center gap-2">
@@ -16,13 +16,13 @@
             :disabled="switchingRole"
             @click="switchToDoctor"
           >
-            {{ switchingRole ? 'Switching...' : 'Doctor Panel' }}
+            {{ switchingRole ? $t('demo.switching') : $t('nav.doctorPanel') }}
           </button>
           <router-link
             to="/demo/scenarios"
             class="px-3 py-1 bg-amber-900/10 hover:bg-amber-900/20 rounded-lg text-xs font-semibold transition-colors"
           >
-            Switch Scenario
+            {{ $t('demo.switchScenario') }}
           </router-link>
         </div>
       </div>
@@ -36,7 +36,7 @@
             <span class="font-semibold text-base leading-none tracking-tight"><span class="text-[#4A6741]">PostVisit</span> <span class="text-[#1A365D]">Urology</span></span>
           </router-link>
           <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#eef3ec] text-[#4A6741]">
-            Patient Panel
+            {{ $t('nav.patientPanel') }}
           </span>
         </div>
 
@@ -46,19 +46,19 @@
             to="/profile"
             :class="['text-sm transition-colors', isActive('/profile') ? 'text-[#4A6741] font-semibold' : 'text-gray-600 hover:text-[#4A6741]']"
           >
-            Profile
+            {{ $t('nav.profile') }}
           </router-link>
           <router-link
             to="/health"
             :class="['text-sm transition-colors', isActive('/health') ? 'text-[#4A6741] font-semibold' : 'text-gray-600 hover:text-[#4A6741]']"
           >
-            My Health
+            {{ $t('nav.myHealth') }}
           </router-link>
           <router-link
             to="/library"
             :class="['text-sm transition-colors', isActive('/library') ? 'text-[#4A6741] font-semibold' : 'text-gray-600 hover:text-[#4A6741]']"
           >
-            Reference
+            {{ $t('nav.reference') }}
           </router-link>
           <router-link
             to="/scribe"
@@ -68,7 +68,7 @@
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
             </span>
-            Record Visit
+            {{ $t('nav.recordVisit') }}
           </router-link>
           <div v-if="auth.user" class="relative pl-3 border-l border-gray-200">
             <button
@@ -98,13 +98,13 @@
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741] transition-colors"
                 @click="dropdownOpen = false"
               >
-                Settings
+                {{ $t('nav.settings') }}
               </router-link>
               <button
                 class="w-full text-left px-4 py-2 text-sm text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
                 @click="handleLogout"
               >
-                Log Out
+                {{ $t('auth.logOut') }}
               </button>
             </div>
           </div>
@@ -139,7 +139,7 @@
             </div>
             <div>
               <p class="text-sm font-medium text-gray-900">{{ auth.user.name }}</p>
-              <p class="text-xs text-[#4A6741] font-medium">Patient Panel</p>
+              <p class="text-xs text-[#4A6741] font-medium">{{ $t('nav.patientPanel') }}</p>
             </div>
           </div>
           <router-link
@@ -147,21 +147,21 @@
             :class="['block px-3 py-2 rounded-lg text-sm transition-colors', isActive('/profile') ? 'bg-[#f4f8f3] text-[#4A6741] font-semibold' : 'text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741]']"
             @click="mobileOpen = false"
           >
-            Profile
+            {{ $t('nav.profile') }}
           </router-link>
           <router-link
             to="/health"
             :class="['block px-3 py-2 rounded-lg text-sm transition-colors', isActive('/health') ? 'bg-[#f4f8f3] text-[#4A6741] font-semibold' : 'text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741]']"
             @click="mobileOpen = false"
           >
-            My Health
+            {{ $t('nav.myHealth') }}
           </router-link>
           <router-link
             to="/library"
             :class="['block px-3 py-2 rounded-lg text-sm transition-colors', isActive('/library') ? 'bg-[#f4f8f3] text-[#4A6741] font-semibold' : 'text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741]']"
             @click="mobileOpen = false"
           >
-            Reference
+            {{ $t('nav.reference') }}
           </router-link>
           <router-link
             to="/scribe"
@@ -172,20 +172,20 @@
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
             </span>
-            Record Visit
+            {{ $t('nav.recordVisit') }}
           </router-link>
           <router-link
             to="/settings"
             class="block px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-[#f4f8f3] hover:text-[#4A6741] transition-colors"
             @click="mobileOpen = false"
           >
-            Settings
+            {{ $t('nav.settings') }}
           </router-link>
           <button
             class="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-red-500 transition-colors"
             @click="handleLogout"
           >
-            Log Out
+            {{ $t('auth.logOut') }}
           </button>
         </div>
       </div>
@@ -206,12 +206,15 @@
         :class="[wide ? '' : 'max-w-6xl', 'mx-auto px-4 py-6 text-center']"
       >
       <p class="text-xs text-gray-400 leading-relaxed">
-        All clinical scenarios, patient data, and medical records displayed in this application are entirely fictional,
-        created for demonstration purposes only, and do not depict any real person or actual medical encounter.
+        {{ $t('app.disclaimer') }}
       </p>
       <div class="mt-3 text-[11px] text-gray-400">
-        Customized for Urology by <a href="https://yuanuro.com" target="_blank" rel="noopener" class="underline hover:text-gray-600 transition-colors">Dr. Lun-Hsiang Yuan</a>,
-        <span class="font-medium">NTUH Yunlin Branch · Dept. of Urology</span>
+        <i18n-t keypath="app.customizedBy" tag="span">
+          <template #doctor>
+            <a href="https://yuanuro.com" target="_blank" rel="noopener" class="underline hover:text-gray-600 transition-colors">Dr. Lun-Hsiang Yuan</a>
+          </template>
+        </i18n-t>,
+        <span class="font-medium">{{ $t('app.affiliation') }}</span>
       </div>
       <p class="text-[10px] text-gray-300 mt-1">build {{ gitHash }}</p>
       </footer>
@@ -245,7 +248,7 @@
       <button
         v-if="!chatOpen"
         class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#f4f8f3] hover:bg-[#eef3ec] rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center group"
-        title="Ask Your Urology AI"
+        :title="$t('chat.askAI')"
         @click="chatOpen = true"
       >
         <img src="/images/logo-icon.png" alt="PostVisit Urology" class="h-7 w-auto group-hover:scale-110 transition-transform" />

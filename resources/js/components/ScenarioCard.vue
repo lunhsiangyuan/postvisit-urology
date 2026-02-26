@@ -64,7 +64,7 @@
         v-if="scenario.specialty && mediaLoaded"
         class="absolute bottom-2 left-2 text-[10px] font-medium capitalize px-1.5 py-0.5 rounded bg-white/90 text-gray-700"
       >
-        {{ scenario.specialty }}
+        {{ $t('specialty.' + scenario.specialty) }}
       </span>
     </div>
 

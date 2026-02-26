@@ -7,14 +7,14 @@
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
-          <span>Demo Mode</span>
+          <span>{{ $t('demo.mode') }}</span>
           <span class="hidden sm:inline text-blue-200">&mdash; {{ auth.user?.name }}</span>
         </div>
         <router-link
           to="/demo/scenarios"
           class="px-3 py-1 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-colors"
         >
-          Switch to Patient
+          {{ $t('demo.switchToPatient') }}
         </router-link>
       </div>
     </div>
@@ -27,7 +27,7 @@
             <span class="font-semibold text-base leading-none tracking-tight"><span class="text-[#4A6741]">PostVisit</span> <span class="text-[#1A365D]">Urology</span></span>
           </router-link>
           <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#e8eef5] text-[#1A365D]">
-            Doctor Panel
+            {{ $t('nav.doctorPanel') }}
           </span>
         </div>
         <button
@@ -52,7 +52,7 @@
             </div>
             <div>
               <p class="text-sm font-medium text-gray-900">{{ auth.user.name }}</p>
-              <p class="text-xs text-[#1A365D] font-medium">Doctor Panel</p>
+              <p class="text-xs text-[#1A365D] font-medium">{{ $t('nav.doctorPanel') }}</p>
             </div>
           </div>
           <router-link
@@ -61,7 +61,7 @@
             active-class="bg-[#e8eef5] text-[#1A365D] font-medium"
             @click="mobileOpen = false"
           >
-            Dashboard
+            {{ $t('nav.dashboard') }}
           </router-link>
           <router-link
             to="/doctor/patients"
@@ -69,7 +69,7 @@
             active-class="bg-[#e8eef5] text-[#1A365D] font-medium"
             @click="mobileOpen = false"
           >
-            Patients
+            {{ $t('nav.patients') }}
             <span
               v-if="totalUnread > 0"
               class="min-w-5 h-5 px-1.5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
@@ -83,13 +83,13 @@
             active-class="bg-[#e8eef5] text-[#1A365D] font-medium"
             @click="mobileOpen = false"
           >
-            Settings
+            {{ $t('nav.settings') }}
           </router-link>
           <button
             class="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-red-500 transition-colors"
             @click="handleLogout"
           >
-            Log Out
+            {{ $t('auth.logOut') }}
           </button>
         </div>
       </div>
@@ -106,7 +106,7 @@
 
         <div class="px-4 pt-4 pb-2">
           <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#e8eef5] text-[#1A365D]">
-            Doctor Panel
+            {{ $t('nav.doctorPanel') }}
           </span>
         </div>
 
@@ -116,14 +116,14 @@
             class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-[#e8eef5] hover:text-[#1A365D] transition-colors"
             active-class="bg-[#e8eef5] text-[#1A365D] font-medium"
           >
-            Dashboard
+            {{ $t('nav.dashboard') }}
           </router-link>
           <router-link
             to="/doctor/patients"
             class="flex items-center justify-between px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-[#e8eef5] hover:text-[#1A365D] transition-colors"
             active-class="bg-[#e8eef5] text-[#1A365D] font-medium"
           >
-            <span class="flex items-center gap-3">Patients</span>
+            <span class="flex items-center gap-3">{{ $t('nav.patients') }}</span>
             <span
               v-if="totalUnread > 0"
               class="min-w-5 h-5 px-1.5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
@@ -136,7 +136,7 @@
             class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-[#e8eef5] hover:text-[#1A365D] transition-colors"
             active-class="bg-[#e8eef5] text-[#1A365D] font-medium"
           >
-            Settings
+            {{ $t('nav.settings') }}
           </router-link>
         </nav>
 
@@ -151,14 +151,14 @@
             </div>
             <div class="min-w-0">
               <p class="text-sm font-medium text-gray-900 truncate">{{ auth.user.name }}</p>
-              <p class="text-xs text-[#1A365D] font-medium">Doctor</p>
+              <p class="text-xs text-[#1A365D] font-medium">{{ $t('nav.doctor') }}</p>
             </div>
           </router-link>
           <button
             class="w-full text-left text-sm text-gray-400 hover:text-red-500 transition-colors px-3 py-2"
             @click="handleLogout"
           >
-            Log Out
+            {{ $t('auth.logOut') }}
           </button>
           <p class="text-[10px] text-gray-300 px-3 mt-1">build {{ gitHash }}</p>
         </div>
