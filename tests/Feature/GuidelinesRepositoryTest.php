@@ -232,6 +232,159 @@ class GuidelinesRepositoryTest extends TestCase
         $this->assertStringContainsString('0 from PMC Open Access', $result);
     }
 
+    public function test_loads_prostate_cancer_guidelines_for_c61_condition(): void
+    {
+        Http::fake([
+            '*/BioC_json/*' => Http::response([], 500),
+        ]);
+
+        Condition::factory()->create([
+            'visit_id' => $this->visit->id,
+            'patient_id' => $this->patient->id,
+            'code' => 'C61',
+            'code_display' => 'Malignant neoplasm of prostate',
+        ]);
+
+        $result = $this->repository->getRelevantGuidelines($this->visit->fresh());
+
+        $this->assertStringContainsString('CLINICAL GUIDELINES CONTEXT', $result);
+        $this->assertStringContainsString('Prostate Cancer', $result);
+    }
+
+    public function test_loads_bph_guidelines_for_n40_condition(): void
+    {
+        Http::fake([
+            '*/BioC_json/*' => Http::response([], 500),
+        ]);
+
+        Condition::factory()->create([
+            'visit_id' => $this->visit->id,
+            'patient_id' => $this->patient->id,
+            'code' => 'N40.1',
+            'code_display' => 'BPH with LUTS',
+        ]);
+
+        $result = $this->repository->getRelevantGuidelines($this->visit->fresh());
+
+        $this->assertStringContainsString('CLINICAL GUIDELINES CONTEXT', $result);
+        $this->assertStringContainsString('Benign Prostatic Hyperplasia', $result);
+    }
+
+    public function test_loads_tamsulosin_drug_label_and_alpha_blocker_class(): void
+    {
+        $medication = Medication::factory()->create([
+            'generic_name' => 'Tamsulosin',
+        ]);
+
+        Prescription::factory()->create([
+            'visit_id' => $this->visit->id,
+            'patient_id' => $this->patient->id,
+            'practitioner_id' => $this->practitioner->id,
+            'medication_id' => $medication->id,
+            'status' => 'active',
+        ]);
+
+        $result = $this->repository->getRelevantGuidelines($this->visit->fresh());
+
+        $this->assertStringContainsString('Tamsulosin', $result);
+        $this->assertStringContainsString('Alpha', $result);
+    }
+
+    public function test_loads_enzalutamide_drug_label_and_antiandrogen_class(): void
+    {
+        $medication = Medication::factory()->create([
+            'generic_name' => 'Enzalutamide',
+        ]);
+
+        Prescription::factory()->create([
+            'visit_id' => $this->visit->id,
+            'patient_id' => $this->patient->id,
+            'practitioner_id' => $this->practitioner->id,
+            'medication_id' => $medication->id,
+            'status' => 'active',
+        ]);
+
+        $result = $this->repository->getRelevantGuidelines($this->visit->fresh());
+
+        $this->assertStringContainsString('Enzalutamide', $result);
+        $this->assertStringContainsString('Antiandrogen', $result);
+    }
+
+    public function test_loads_leuprolide_drug_label_and_adt_class(): void
+    {
+        $medication = Medication::factory()->create([
+            'generic_name' => 'Leuprolide Acetate',
+        ]);
+
+        Prescription::factory()->create([
+            'visit_id' => $this->visit->id,
+            'patient_id' => $this->patient->id,
+            'practitioner_id' => $this->practitioner->id,
+            'medication_id' => $medication->id,
+            'status' => 'active',
+        ]);
+
+        $result = $this->repository->getRelevantGuidelines($this->visit->fresh());
+
+        $this->assertStringContainsString('Leuprolide', $result);
+        $this->assertStringContainsString('Androgen Deprivation', $result);
+    }
+
+    public function test_bone_metastasis_maps_to_prostate_cancer_guidelines(): void
+    {
+        Http::fake([
+            '*/BioC_json/*' => Http::response([], 500),
+        ]);
+
+        Condition::factory()->create([
+            'visit_id' => $this->visit->id,
+            'patient_id' => $this->patient->id,
+            'code' => 'C79.51',
+            'code_display' => 'Secondary malignant neoplasm of bone',
+        ]);
+
+        $result = $this->repository->getRelevantGuidelines($this->visit->fresh());
+
+        $this->assertStringContainsString('Prostate Cancer', $result);
+    }
+
+    public function test_pca_metastatic_visit_loads_comprehensive_guidelines(): void
+    {
+        Http::fake([
+            '*/BioC_json/*' => Http::response([], 500),
+        ]);
+
+        Condition::factory()->create([
+            'visit_id' => $this->visit->id,
+            'patient_id' => $this->patient->id,
+            'code' => 'C61',
+            'code_display' => 'Malignant neoplasm of prostate',
+        ]);
+
+        $enzalutamide = Medication::factory()->create(['generic_name' => 'Enzalutamide']);
+        $leuprolide = Medication::factory()->create(['generic_name' => 'Leuprolide Acetate']);
+        $denosumab = Medication::factory()->create(['generic_name' => 'Denosumab']);
+
+        foreach ([$enzalutamide, $leuprolide, $denosumab] as $med) {
+            Prescription::factory()->create([
+                'visit_id' => $this->visit->id,
+                'patient_id' => $this->patient->id,
+                'practitioner_id' => $this->practitioner->id,
+                'medication_id' => $med->id,
+                'status' => 'active',
+            ]);
+        }
+
+        $result = $this->repository->getRelevantGuidelines($this->visit->fresh());
+
+        $this->assertStringContainsString('Prostate Cancer', $result);
+        $this->assertStringContainsString('Enzalutamide', $result);
+        $this->assertStringContainsString('Leuprolide', $result);
+        $this->assertStringContainsString('Denosumab', $result);
+        $this->assertStringContainsString('Androgen Deprivation', $result);
+        $this->assertStringContainsString('Antiandrogen', $result);
+    }
+
     public function test_source_attribution_includes_pmc_count(): void
     {
         Http::fake([

@@ -500,26 +500,37 @@ class UrologyDemoSeeder extends Seeder
             'consent_timestamp' => $visitStart,
         ]);
 
-        // 11. Medical References
+        // 11. Medical References (EAU 2026 + NCCN 2026)
         MedicalReference::create([
-            'title' => 'EAU Guidelines on Management of Non-Neurogenic Male LUTS including BPH 2024',
+            'title' => 'EAU Guidelines on Management of Non-Neurogenic Male LUTS including BPH 2026',
             'source_organization' => 'European Association of Urology',
             'category' => 'clinical_guideline',
             'specialty' => 'urology',
             'url' => 'https://uroweb.org/guidelines/management-of-non-neurogenic-male-luts',
-            'summary' => 'Alpha-1 blockers (tamsulosin, silodosin, alfuzosin) are first-line medical treatment for LUTS/BPH with moderate-to-severe symptoms (IPSS ≥8). Improve Qmax and IPSS within 2-4 weeks. Surgery (TURP, HoLEP) indicated when medical therapy fails or complications arise.',
-            'year' => 2024,
+            'summary' => 'Alpha-1 blockers (tamsulosin, silodosin, alfuzosin) are first-line medical treatment for LUTS/BPH with moderate-to-severe symptoms (IPSS ≥8). 5-ARIs (finasteride, dutasteride) for prostates >40mL. Combination therapy (alpha-blocker + 5ARI) for large prostates with moderate-severe LUTS. Surgery (TURP, HoLEP, aquablation) indicated when medical therapy fails.',
+            'year' => 2026,
             'verified' => true,
         ]);
 
         MedicalReference::create([
-            'title' => 'EAU Guidelines on Prostate Cancer 2024',
+            'title' => 'EAU-EANM-ESTRO-ESUR-ISUP-SIOG Guidelines on Prostate Cancer 2026',
             'source_organization' => 'European Association of Urology',
             'category' => 'clinical_guideline',
             'specialty' => 'urology',
             'url' => 'https://uroweb.org/guidelines/prostate-cancer',
-            'summary' => 'PSA screening recommended for well-informed men aged 50-70 at average risk, or 40-45 for high-risk groups (family history, African descent). PSA density >0.15 and PSA velocity >0.75 ng/mL/year warrant further evaluation.',
-            'year' => 2024,
+            'summary' => 'Risk stratification by ISUP Grade Group, PSA, and TNM stage. Active surveillance for low-risk and select favorable intermediate-risk. RALRP or EBRT for localized disease. ADT + novel antiandrogen (enzalutamide/apalutamide/darolutamide) for mCSPC. ADT + docetaxel + abiraterone triplet for high-volume mCSPC.',
+            'year' => 2026,
+            'verified' => true,
+        ]);
+
+        MedicalReference::create([
+            'title' => 'NCCN Clinical Practice Guidelines in Oncology: Prostate Cancer v1.2026',
+            'source_organization' => 'National Comprehensive Cancer Network',
+            'category' => 'clinical_guideline',
+            'specialty' => 'urology',
+            'url' => 'https://www.nccn.org/professionals/physician_gls/pdf/prostate.pdf',
+            'summary' => 'Risk-stratified management: very low to very high risk groups. PSMA PET/CT recommended for staging. Active surveillance criteria: GG1 or favorable GG2 (<10% pattern 4). Germline/somatic testing for HRR mutations (BRCA1/2, ATM). mCRPC sequencing: novel antiandrogens, taxanes, PARP inhibitors, Lu-177 PSMA.',
+            'year' => 2026,
             'verified' => true,
         ]);
 
@@ -547,35 +558,48 @@ class UrologyDemoSeeder extends Seeder
 
     private function cleanupExistingData(): void
     {
-        // Collect IDs from users (may be partially created from a prior failed run)
+        // Collect IDs from users with @demo.yuanuro.com emails
         $users = User::where('email', 'LIKE', '%@demo.yuanuro.com')->get();
         $patientIds = $users->pluck('patient_id')->filter()->values();
         $practitionerIds = $users->pluck('practitioner_id')->filter()->values();
         $userIds = $users->pluck('id');
 
-        // Also find orphaned patients/practitioners not linked to any user (including soft-deleted)
+        // Also find orphaned patients/practitioners not linked to any user
         $orphanPatients = Patient::withTrashed()->whereIn('email', ['patient@demo.yuanuro.com'])->pluck('id');
         $patientIds = $patientIds->merge($orphanPatients)->unique()->values();
 
-        $orphanPractitioners = Practitioner::whereIn('email', ['doctor@demo.yuanuro.com'])->pluck('id');
+        $orphanPractitioners = Practitioner::whereIn('email', ['doctor@demo.yuanuro.com', 'dr.yuan@demo.yuanuro.com'])->pluck('id');
         $practitionerIds = $practitionerIds->merge($orphanPractitioners)->unique()->values();
 
+        // Collect ALL visit IDs referencing our patients OR practitioners (from any seeder)
+        $visitIdsByPatient = $patientIds->isNotEmpty()
+            ? Visit::whereIn('patient_id', $patientIds)->pluck('id')
+            : collect();
+        $visitIdsByPractitioner = $practitionerIds->isNotEmpty()
+            ? Visit::whereIn('practitioner_id', $practitionerIds)->pluck('id')
+            : collect();
+        $allVisitIds = $visitIdsByPatient->merge($visitIdsByPractitioner)->unique()->values();
+
         // Step 1: delete visit children — must go before visits (FK constraints)
-        if ($patientIds->isNotEmpty()) {
-            $visitIds = Visit::whereIn('patient_id', $patientIds)->pluck('id');
-            if ($visitIds->isNotEmpty()) {
-                // 1a. ChatMessage → ChatSession (FK: chat_sessions.visit_id → visits)
-                $chatSessionIds = ChatSession::whereIn('visit_id', $visitIds)->pluck('id');
-                if ($chatSessionIds->isNotEmpty()) {
-                    ChatMessage::whereIn('session_id', $chatSessionIds)->delete();
-                    ChatSession::whereIn('id', $chatSessionIds)->delete();
-                }
-                // 1b. All other visit-referenced tables
-                VisitNote::whereIn('visit_id', $visitIds)->delete();
-                Transcript::whereIn('visit_id', $visitIds)->delete();
-                \App\Models\Document::whereIn('visit_id', $visitIds)->delete();
-                \App\Models\Notification::whereIn('visit_id', $visitIds)->delete();
+        if ($allVisitIds->isNotEmpty()) {
+            $chatSessionIds = ChatSession::whereIn('visit_id', $allVisitIds)->pluck('id');
+            if ($chatSessionIds->isNotEmpty()) {
+                ChatMessage::whereIn('session_id', $chatSessionIds)->delete();
+                ChatSession::whereIn('id', $chatSessionIds)->delete();
             }
+            VisitNote::whereIn('visit_id', $allVisitIds)->delete();
+            Transcript::whereIn('visit_id', $allVisitIds)->delete();
+            \App\Models\Document::whereIn('visit_id', $allVisitIds)->delete();
+            \App\Models\Notification::whereIn('visit_id', $allVisitIds)->delete();
+        }
+
+        // Also collect patient IDs from practitioner-linked visits (scenario seeder may create different patients)
+        if ($visitIdsByPractitioner->isNotEmpty()) {
+            $extraPatientIds = Visit::whereIn('id', $visitIdsByPractitioner)->pluck('patient_id');
+            $patientIds = $patientIds->merge($extraPatientIds)->unique()->values();
+        }
+
+        if ($patientIds->isNotEmpty()) {
             Observation::whereIn('patient_id', $patientIds)->delete();
             Condition::whereIn('patient_id', $patientIds)->delete();
             Prescription::whereIn('patient_id', $patientIds)->delete();
@@ -584,25 +608,33 @@ class UrologyDemoSeeder extends Seeder
 
         MedicalReference::where('specialty', 'urology')->delete();
 
-        // Step 2: delete audit_logs (FK: audit_logs.user_id → users, NOT nullable)
-        if ($userIds->isNotEmpty()) {
-            \App\Models\AuditLog::whereIn('user_id', $userIds)->delete();
+        // Step 2: delete audit_logs for all related users (including scenario-seeder created users)
+        $extraUserIds = $patientIds->isNotEmpty()
+            ? User::whereIn('patient_id', $patientIds)->pluck('id')
+            : collect();
+        $allUserIds = $userIds->merge($extraUserIds)->unique()->values();
+
+        if ($allUserIds->isNotEmpty()) {
+            \App\Models\AuditLog::whereIn('user_id', $allUserIds)->delete();
         }
 
-        // Step 3: nullify created_by FKs pointing to users (nullable FKs on visits, patients, etc.)
-        if ($userIds->isNotEmpty()) {
-            Visit::whereIn('created_by', $userIds)->update(['created_by' => null]);
-            Patient::withTrashed()->whereIn('created_by', $userIds)->update(['created_by' => null]);
+        // Step 3: nullify created_by FKs pointing to users (nullable FKs across all tables)
+        if ($allUserIds->isNotEmpty()) {
+            Visit::whereIn('created_by', $allUserIds)->update(['created_by' => null]);
+            Patient::withTrashed()->whereIn('created_by', $allUserIds)->update(['created_by' => null]);
+            Observation::whereIn('created_by', $allUserIds)->update(['created_by' => null]);
+            Prescription::whereIn('created_by', $allUserIds)->update(['created_by' => null]);
+            Condition::whereIn('created_by', $allUserIds)->update(['created_by' => null]);
         }
 
-        // Step 4: delete visits
-        if ($patientIds->isNotEmpty()) {
-            Visit::whereIn('patient_id', $patientIds)->delete();
+        // Step 4: delete visits (all that reference our patients or practitioners)
+        if ($allVisitIds->isNotEmpty()) {
+            Visit::whereIn('id', $allVisitIds)->delete();
         }
 
-        // Step 5: delete users (users.patient_id → patients; users.practitioner_id → practitioners)
-        if ($userIds->isNotEmpty()) {
-            User::whereIn('id', $userIds)->delete();
+        // Step 5: delete users
+        if ($allUserIds->isNotEmpty()) {
+            User::whereIn('id', $allUserIds)->delete();
         }
 
         // Step 6: forceDelete patients — SoftDeletes keeps email with unique constraint
@@ -610,7 +642,7 @@ class UrologyDemoSeeder extends Seeder
             Patient::withTrashed()->whereIn('id', $patientIds)->forceDelete();
         }
 
-        // Step 7: delete practitioners (safe — users gone)
+        // Step 7: delete practitioners (safe — users and visits gone)
         if ($practitionerIds->isNotEmpty()) {
             Practitioner::whereIn('id', $practitionerIds)->delete();
         }

@@ -15,12 +15,16 @@ class DemoScenarioTest extends TestCase
         $response = $this->getJson('/api/v1/demo/scenarios');
 
         $response->assertOk()
-            ->assertJsonCount(12, 'data')
-            ->assertJsonPath('data.0.key', 'pvcs')
-            ->assertJsonPath('data.0.name', 'PVCs / Palpitations')
-            ->assertJsonPath('data.0.patient_name', 'Alex Johnson')
-            ->assertJsonPath('data.1.key', 'coronarography')
-            ->assertJsonPath('data.1.name', 'Coronarography / Stenosis');
+            ->assertJsonCount(15, 'data')
+            ->assertJsonPath('data.0.key', 'boo-bph')
+            ->assertJsonPath('data.0.name', 'BOO / BPH')
+            ->assertJsonPath('data.0.patient_name', 'Zhi-Ming Wang')
+            ->assertJsonPath('data.1.key', 'pca-localized')
+            ->assertJsonPath('data.1.name', 'Prostate Cancer — Localized')
+            ->assertJsonPath('data.2.key', 'pca-metastatic')
+            ->assertJsonPath('data.2.name', 'Prostate Cancer — Metastatic')
+            ->assertJsonPath('data.3.key', 'pvcs')
+            ->assertJsonPath('data.3.name', 'PVCs / Palpitations');
     }
 
     public function test_can_start_pvcs_scenario(): void
@@ -254,6 +258,115 @@ class DemoScenarioTest extends TestCase
             'code' => '718-7',
             'code_display' => 'Hemoglobin',
             'value_type' => 'quantity',
+        ]);
+    }
+
+    public function test_can_start_pca_localized_scenario(): void
+    {
+        $response = $this->postJson('/api/v1/demo/start-scenario', [
+            'scenario' => 'pca-localized',
+        ]);
+
+        $response->assertOk()
+            ->assertJsonPath('data.user.role', 'patient')
+            ->assertJsonPath('data.scenario', 'pca-localized');
+
+        $this->assertDatabaseHas('patients', [
+            'first_name' => 'Wei-Cheng',
+            'last_name' => 'Lin',
+        ]);
+
+        // Verify prostate cancer diagnosis
+        $this->assertDatabaseHas('conditions', [
+            'code' => 'C61',
+            'code_display' => 'Malignant neoplasm of prostate',
+        ]);
+
+        // Verify PSA observation
+        $this->assertDatabaseHas('observations', [
+            'code' => '2857-1',
+            'value_type' => 'quantity',
+        ]);
+
+        // Verify biopsy observation
+        $this->assertDatabaseHas('observations', [
+            'code' => '10230-1',
+            'code_display' => 'Prostate biopsy',
+        ]);
+
+        // Verify existing medications (chronic meds, not cancer-specific)
+        $this->assertDatabaseHas('medications', [
+            'generic_name' => 'Amlodipine',
+        ]);
+
+        // Verify visit note with treatment discussion
+        $this->assertDatabaseHas('visit_notes', [
+            'chief_complaint' => 'Prostate biopsy results review and treatment planning for newly diagnosed prostate cancer',
+        ]);
+    }
+
+    public function test_can_start_pca_metastatic_scenario(): void
+    {
+        $response = $this->postJson('/api/v1/demo/start-scenario', [
+            'scenario' => 'pca-metastatic',
+        ]);
+
+        $response->assertOk()
+            ->assertJsonPath('data.user.role', 'patient')
+            ->assertJsonPath('data.scenario', 'pca-metastatic');
+
+        $this->assertDatabaseHas('patients', [
+            'first_name' => 'Kuo-Hsiung',
+            'last_name' => 'Chen',
+        ]);
+
+        // Verify metastatic prostate cancer diagnosis
+        $this->assertDatabaseHas('conditions', [
+            'code' => 'C61',
+        ]);
+
+        // Verify bone metastasis diagnosis
+        $this->assertDatabaseHas('conditions', [
+            'code' => 'C79.51',
+            'code_display' => 'Secondary malignant neoplasm of bone',
+        ]);
+
+        // Verify ADT medication
+        $this->assertDatabaseHas('medications', [
+            'generic_name' => 'Leuprolide acetate',
+        ]);
+
+        // Verify Enzalutamide
+        $this->assertDatabaseHas('medications', [
+            'generic_name' => 'Enzalutamide',
+        ]);
+
+        // Verify Denosumab for bone health
+        $this->assertDatabaseHas('medications', [
+            'generic_name' => 'Denosumab',
+        ]);
+
+        // Verify Lisinopril (new prescription for Enza-related HTN)
+        $this->assertDatabaseHas('medications', [
+            'generic_name' => 'Lisinopril',
+        ]);
+
+        // Verify PSA observation
+        $this->assertDatabaseHas('observations', [
+            'code' => '2857-1',
+            'value_type' => 'quantity',
+        ]);
+
+        // Verify testosterone observation
+        $this->assertDatabaseHas('observations', [
+            'code' => '2986-8',
+            'code_display' => 'Testosterone [Mass/volume] in Serum or Plasma',
+        ]);
+
+        // Verify DEXA scan
+        $this->assertDatabaseHas('observations', [
+            'code' => '46995-3',
+            'code_display' => 'DEXA T-score lumbar spine',
         ]);
     }
 

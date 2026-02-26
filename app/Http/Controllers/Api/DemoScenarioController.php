@@ -129,12 +129,34 @@ class DemoScenarioController extends Controller
     }
 
     /**
-     * Switch current demo session to the shared doctor account.
+     * Switch current demo session to the doctor account for the current scenario.
+     *
+     * Resolves the correct doctor by tracing: current patient → latest visit → practitioner → User.
+     * Falls back to the shared default doctor from config if no scenario-specific doctor is found.
      */
     public function switchToDoctor(Request $request): JsonResponse
     {
-        $doctorEmail = config('demo-scenarios.doctor.email');
-        $doctor = \App\Models\User::where('email', $doctorEmail)->first();
+        $doctor = null;
+
+        // Try to find the scenario-specific doctor via the current patient's visit
+        $currentUser = $request->user();
+        if ($currentUser && $currentUser->patient_id) {
+            $latestVisit = \App\Models\Visit::where('patient_id', $currentUser->patient_id)
+                ->latest('started_at')
+                ->first();
+
+            if ($latestVisit && $latestVisit->practitioner_id) {
+                $doctor = \App\Models\User::where('practitioner_id', $latestVisit->practitioner_id)
+                    ->where('role', 'doctor')
+                    ->first();
+            }
+        }
+
+        // Fallback to the shared default doctor from config
+        if (! $doctor) {
+            $doctorEmail = config('demo-scenarios.doctor.email');
+            $doctor = \App\Models\User::where('email', $doctorEmail)->first();
+        }
 
         if (! $doctor) {
             return response()->json([

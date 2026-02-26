@@ -1,0 +1,53 @@
+Doctor: Good afternoon, Mr. Lin. Thank you for coming in today. I know you've been waiting anxiously for these results.
+
+Patient: Yes, doctor. I've been quite worried since the biopsy.
+
+Doctor: I understand. Let me walk you through everything clearly. First, your MRI showed a PI-RADS 4 lesion — that means a suspicious area — in the right side of your prostate. Based on that, we performed an MRI-guided fusion biopsy, taking 12 tissue samples.
+
+Patient: And what did the biopsy show?
+
+Doctor: Three out of twelve cores came back positive for prostate cancer. The Gleason score is 3 plus 4, which equals 7 — we call this Grade Group 2. The largest positive core was 8 millimeters. Now, I want to emphasize — this is what we consider favorable intermediate risk. It's not the most aggressive type.
+
+Patient: So... it is cancer. What does that mean for me?
+
+Doctor: Yes, it is cancer, but the good news is that your staging workup — the CT scan and bone scan — both came back completely clean. No spread to lymph nodes, no spread to bones. Your clinical stage is T2a N0 M0, meaning the cancer is confined to one side of the prostate.
+
+Patient: That's somewhat reassuring. What are my options?
+
+Doctor: You have several excellent options. Let me go through each one. First, robot-assisted surgery — we call it RALRP. This is what I specialize in. Using the da Vinci robotic system, we remove the entire prostate through small incisions. Recovery is typically 2 to 3 weeks. The cure rate for your stage is over 95%.
+
+Patient: What about the side effects of surgery?
+
+Doctor: The two main concerns are urinary control and sexual function. For urinary incontinence, most patients recover full control within 1 to 3 months. I'd have you start pelvic floor exercises — Kegel exercises — right away, even before surgery, which significantly helps. For sexual function, this is where nerve-sparing technique comes in.
+
+Patient: Yes, I've read about nerve-sparing. Can you do that in my case?
+
+Doctor: Great question. Since your tumor is on the right side, I would plan a wide excision on the right — meaning we remove a wider margin around the tumor for safety. On the left side, where there's no tumor, we can do full nerve-sparing. This gives us the best balance between cancer control and preserving your sexual function. Typically, potency recovery takes 6 to 18 months with this approach.
+
+Patient: What about the HIFU treatment I've been reading about?
+
+Doctor: HIFU — High-Intensity Focused Ultrasound — is a newer focal therapy option. It uses focused sound waves to destroy the tumor without removing the prostate. The advantage is fewer side effects. However, for your case with 3 positive cores and a PSA density of 0.20, you're at the upper limit of what HIFU is typically recommended for. The long-term data isn't as robust as surgery.
+
+Patient: And radiation?
+
+Doctor: External beam radiation therapy, sometimes combined with short-term hormone therapy, is another excellent standard option. The cure rates are comparable to surgery for your risk group. The main differences are the treatment timeline — usually 4 to 6 weeks of daily treatments — and the side effect profile. Radiation tends to have more bowel-related side effects long-term, while surgery has more immediate urinary and sexual effects that typically improve.
+
+Patient: Is active surveillance — just watching it — an option for me?
+
+Doctor: That's a thoughtful question. Active surveillance is ideal for very low-risk cancers. In your case, with Grade Group 2, three positive cores, and a PSA density of 0.20, you're technically a borderline candidate. Most guidelines would suggest that your disease volume makes you a better candidate for definitive treatment rather than surveillance.
+
+Patient: I think... I'm leaning toward the surgery. The idea of removing the cancer completely appeals to me. And you mentioned the nerve-sparing technique.
+
+Doctor: That's a very reasonable choice. Many patients in your situation feel the same way. With RALRP, we can definitively remove the cancer and examine the entire specimen under the microscope to confirm clear margins. The nerve-sparing approach on the left side will give you the best chance for potency recovery.
+
+Patient: What do I need to do to prepare?
+
+Doctor: We'll schedule the surgery in about 4 to 6 weeks. Before that, you'll need pre-operative bloodwork — a complete blood count, chemistry panel, and coagulation studies. We'll also need a chest X-ray and ECG for anesthesia clearance. Most importantly, start your Kegel exercises today. I'll give you a handout. Three sets of 10 repetitions, three times a day.
+
+Patient: And my blood pressure and cholesterol medications?
+
+Doctor: Continue the amlodipine and atorvastatin as usual. On the day of surgery, you'll hold the atorvastatin but can take the amlodipine with a small sip of water. We'll go over all the details at your pre-op visit in two weeks.
+
+Patient: Thank you, doctor. I feel much better having a clear plan.
+
+Doctor: You're welcome, Mr. Lin. You have an excellent prognosis. We'll take very good care of you. My nurse will schedule your pre-op appointment and the surgery date before you leave today.

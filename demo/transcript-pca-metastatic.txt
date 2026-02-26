@@ -1,0 +1,53 @@
+Doctor: Good morning, Mr. Chen. Come in, please. How have you been feeling since our last visit?
+
+Patient: Not bad overall, doctor. A bit tired, but manageable. My daughter drove me today.
+
+Doctor: That's good to have support. Let's review your numbers — I have some very encouraging news. Your PSA has continued to drop beautifully. When we first diagnosed you six months ago, it was 85.6. At six weeks it came down to 12.3, at three months it was 2.1, and now at six months it's 0.8.
+
+Patient: 0.8! That's... that's amazing. It was so high before.
+
+Doctor: Yes, this is an excellent response — over 99% decline. The combination of your Leuprolide injections and the Enzalutamide is working very well together. Your testosterone level is at 12 nanograms per deciliter, which confirms the hormone treatment is doing its job. We want it below 50, and you're well below that.
+
+Patient: And the bone scan? I was worried about that.
+
+Doctor: The bone scan shows your two known metastatic spots — the L3 vertebra and the right iliac bone — are both stable. No new lesions. This is exactly what we want to see. The treatment is controlling the disease.
+
+Patient: That's a relief. So we keep going with the same treatment?
+
+Doctor: Absolutely. No changes to the Leuprolide or Enzalutamide. The response is excellent and we want to maintain it. Now, let me check on some of the side effects we've been monitoring. How's your energy level?
+
+Patient: I get tired more easily than before. I used to walk to the market every morning, but now I sometimes skip it. And I feel a bit... down sometimes.
+
+Doctor: The fatigue is a common side effect of the hormone therapy. Your hemoglobin is 12.1, which is slightly below normal — that mild anemia contributes to the tiredness. It's not severe enough to need treatment yet, but we'll keep watching it. I'd really encourage you to try structured exercise — even 30 minutes of walking three times a week can significantly help with both the fatigue and the mood.
+
+Patient: I'll try. My daughter keeps telling me to walk more.
+
+Doctor: She's right. Listen to her. Now, let me check your blood pressure... 148 over 88. That's still higher than I'd like, despite the increased amlodipine dose.
+
+Patient: I noticed my readings at home have been around 140 to 145.
+
+Doctor: The elevated blood pressure is a known side effect of Enzalutamide. We already increased your amlodipine from 5 to 10 milligrams, but it's not enough on its own. I'd like to add a second blood pressure medication — Lisinopril, 10 milligrams, once daily. This is an ACE inhibitor that works through a different mechanism. Our target is to get you below 140 over 80.
+
+Patient: Another pill... I'm already taking quite a few.
+
+Doctor: I understand. But controlling the blood pressure is important, especially while you're on the Enzalutamide. I want you to keep a blood pressure diary at home — check it every morning — and we'll recheck in four weeks to see if the Lisinopril is enough.
+
+Patient: Okay. What about my bones? I remember you mentioned they could get weaker.
+
+Doctor: Good question. Your DEXA scan shows a T-score of minus 1.8 in the lumbar spine. That's osteopenia — bones that are thinner than normal but not yet osteoporosis. This is expected with hormone therapy because testosterone helps maintain bone density. You're already receiving Denosumab injections every six months, which is protecting your bones. Your next dose is in three months. Are you taking your calcium and vitamin D supplements?
+
+Patient: Yes, the calcium tablets and the vitamin D drops every day.
+
+Doctor: Perfect, keep that up. 1200 milligrams of calcium and 2000 international units of vitamin D daily. Also, please be careful about fall prevention — non-slip mats in the bathroom, good lighting at night, hold the railing on stairs.
+
+Patient: And the liver tests? You mentioned those are important with the Enzalutamide.
+
+Doctor: Yes, your liver function tests — the ALT and AST — are both normal. 28 and 32 respectively, well within range. We check these every three months because Enzalutamide can rarely cause liver problems. Yours look great.
+
+Patient: So overall, things are going well?
+
+Doctor: Very well. Your cancer is responding excellently to treatment. The bone disease is stable. We just need to fine-tune the blood pressure management and keep you active and strong. I'll see you again in three months for your next PSA, testosterone, and liver function checks. The bone scan will be repeated at that visit too.
+
+Patient: Thank you, doctor. I feel reassured.
+
+Doctor: You're doing great, Mr. Chen. Keep taking your medications consistently, try to walk regularly, and call us if you notice any new bone pain, severe fatigue, or any seizure-like episodes — though those are very rare with Enzalutamide. Take care.

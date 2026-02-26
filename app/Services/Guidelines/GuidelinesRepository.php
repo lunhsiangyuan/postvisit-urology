@@ -19,6 +19,7 @@ class GuidelinesRepository
 {
     /** Map ICD-10 condition codes to WikiDoc article filenames */
     private const CONDITION_MAP = [
+        // Cardiology
         'I49.3' => ['premature-ventricular-contraction'],
         'I49.4' => ['premature-ventricular-contraction'],
         'I50' => ['heart-failure'],
@@ -33,6 +34,29 @@ class GuidelinesRepository
         'I11' => ['hypertension'],
         'I12' => ['hypertension'],
         'I13' => ['hypertension'],
+
+        // Urology — Prostate Cancer (EAU 2026 / NCCN 2026)
+        'C61' => ['prostate-cancer'],
+        'C79.51' => ['prostate-cancer'],
+        'D07.5' => ['prostate-cancer'],
+        'D40.0' => ['prostate-cancer'],
+        'Z85.46' => ['prostate-cancer'],
+
+        // Urology — BPH / LUTS (EAU 2026)
+        'N40' => ['bph-luts'],
+        'N40.0' => ['bph-luts'],
+        'N40.1' => ['bph-luts'],
+        'N40.2' => ['bph-luts'],
+        'N40.3' => ['bph-luts'],
+        'N13.8' => ['bph-luts'],
+        'N13.9' => ['bph-luts'],
+        'N32.0' => ['bph-luts'],
+        'R33.8' => ['bph-luts'],
+        'R39.14' => ['bph-luts'],
+
+        // Osteoporosis (ADT-related)
+        'M81.0' => ['androgen-deprivation-therapy'],
+        'M81.8' => ['androgen-deprivation-therapy'],
     ];
 
     /** Map WikiDoc condition article names to PMC guideline keys */
@@ -40,10 +64,13 @@ class GuidelinesRepository
         'premature-ventricular-contraction' => 'pvc_2020',
         'heart-failure' => 'hf_2022',
         'hypertension' => 'htn_2017',
+        'prostate-cancer' => 'pca_2021',
+        'bph-luts' => 'bph_2022',
     ];
 
     /** Map generic drug names (lowercase) to DailyMed label filenames */
     private const DRUG_LABEL_MAP = [
+        // Cardiology
         'propranolol' => 'propranolol',
         'propranolol hydrochloride' => 'propranolol',
         'furosemide' => 'furosemide',
@@ -53,10 +80,23 @@ class GuidelinesRepository
         'amlodipine' => 'amlodipine',
         'amlodipine besylate' => 'amlodipine',
         'hydrochlorothiazide' => 'hydrochlorothiazide',
+
+        // Urology — BPH
+        'tamsulosin' => 'tamsulosin',
+        'tamsulosin hydrochloride' => 'tamsulosin',
+
+        // Urology — Prostate Cancer (ADT / Novel antiandrogens)
+        'enzalutamide' => 'enzalutamide',
+        'leuprolide acetate' => 'leuprolide',
+        'leuprolide' => 'leuprolide',
+        'denosumab' => 'denosumab',
+        'atorvastatin' => 'atorvastatin',
+        'atorvastatin calcium' => 'atorvastatin',
     ];
 
     /** Map generic drug names (lowercase) to WikiDoc drug class articles */
     private const DRUG_CLASS_MAP = [
+        // Cardiology
         'propranolol' => ['beta-blocker', 'propranolol'],
         'propranolol hydrochloride' => ['beta-blocker', 'propranolol'],
         'carvedilol' => ['beta-blocker'],
@@ -68,6 +108,36 @@ class GuidelinesRepository
         'ramipril' => ['ace-inhibitor'],
         'amlodipine' => ['calcium-channel-blocker'],
         'amlodipine besylate' => ['calcium-channel-blocker'],
+
+        // Urology — BPH alpha-blockers
+        'tamsulosin' => ['alpha-blocker'],
+        'tamsulosin hydrochloride' => ['alpha-blocker'],
+        'silodosin' => ['alpha-blocker'],
+        'alfuzosin' => ['alpha-blocker'],
+        'alfuzosin hydrochloride' => ['alpha-blocker'],
+        'doxazosin' => ['alpha-blocker'],
+        'terazosin' => ['alpha-blocker'],
+
+        // Urology — 5-alpha reductase inhibitors (future P1 scenario)
+        'finasteride' => ['bph-luts'],
+        'dutasteride' => ['bph-luts'],
+
+        // Urology — ADT (GnRH agonists/antagonists)
+        'leuprolide acetate' => ['androgen-deprivation-therapy'],
+        'leuprolide' => ['androgen-deprivation-therapy'],
+        'goserelin' => ['androgen-deprivation-therapy'],
+        'degarelix' => ['androgen-deprivation-therapy'],
+        'relugolix' => ['androgen-deprivation-therapy'],
+
+        // Urology — Novel antiandrogens
+        'enzalutamide' => ['antiandrogen'],
+        'apalutamide' => ['antiandrogen'],
+        'darolutamide' => ['antiandrogen'],
+        'abiraterone' => ['antiandrogen'],
+        'abiraterone acetate' => ['antiandrogen'],
+
+        // Urology — Bone protection
+        'denosumab' => [],
     ];
 
     private string $guidelinesPath;

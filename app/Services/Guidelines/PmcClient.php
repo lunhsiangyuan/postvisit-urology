@@ -8,11 +8,16 @@ use Illuminate\Support\Facades\Log;
 
 class PmcClient
 {
-    /** Known PMC IDs for key cardiology guidelines */
+    /** Known PMC IDs for key clinical guidelines (open access) */
     public const GUIDELINE_IDS = [
+        // Cardiology
         'hf_2022' => 'PMC9386162',   // 2022 AHA/ACC/HFSA Heart Failure Guidelines
         'htn_2017' => 'PMC7384247',  // 2017 ACC/AHA Hypertension Guidelines
         'pvc_2020' => 'PMC7880852',  // PVC management consensus
+
+        // Urology — Prostate Cancer
+        'pca_2021' => 'PMC8580056',  // Prostate Cancer: A Review (2021, Nat Rev Dis Primers)
+        'bph_2022' => 'PMC8541785',  // BPH/LUTS management review (2022)
     ];
 
     private const MAX_WORDS = 50000;

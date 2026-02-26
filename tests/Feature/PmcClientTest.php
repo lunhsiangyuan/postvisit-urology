@@ -178,8 +178,13 @@ class PmcClientTest extends TestCase
 
     public function test_guideline_ids_contains_expected_keys(): void
     {
+        // Cardiology
         $this->assertArrayHasKey('hf_2022', PmcClient::GUIDELINE_IDS);
         $this->assertArrayHasKey('htn_2017', PmcClient::GUIDELINE_IDS);
         $this->assertArrayHasKey('pvc_2020', PmcClient::GUIDELINE_IDS);
+
+        // Urology
+        $this->assertArrayHasKey('pca_2021', PmcClient::GUIDELINE_IDS);
+        $this->assertArrayHasKey('bph_2022', PmcClient::GUIDELINE_IDS);
     }
 }
